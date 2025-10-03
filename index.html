@@ -509,6 +509,216 @@
         </div>
     </section>
 
+    <!-- Seção: Tipos de Pessoa Jurídica e Faixas de Renda -->
+    <section id="tipos-pj" class="py-20 relative z-10" style="background: var(--bg-primary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">📊 TIPOS DE PESSOA JURÍDICA</span>
+                    <br>
+                    <span class="gradient-text">E Faixas de Renda</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    A escolha do tipo de PJ está diretamente ligada à faixa de faturamento (receita bruta anual) do profissional. Essa é a principal métrica que define o regime tributário e a carga de impostos da PJ.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Tipos de Pessoa Jurídica</h3>
+                        
+                        <div class="grid md:grid-cols-1 gap-8">
+                            <!-- MEI -->
+                            <div class="holographic-card">
+                                <div class="flex items-center mb-6">
+                                    <span class="text-4xl mr-4">🏪</span>
+                                    <h4 class="text-2xl font-bold" style="color: var(--text-primary);">A. Microempreendedor Individual (MEI)</h4>
+                                </div>
+                                
+                                <div class="overflow-x-auto">
+                                    <table class="w-full mb-6">
+                                        <thead>
+                                            <tr style="background: rgba(255, 255, 255, 0.1);">
+                                                <th class="text-left p-4 font-semibold" style="color: var(--text-primary);">Característica</th>
+                                                <th class="text-left p-4 font-semibold" style="color: var(--text-primary);">Detalhes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Limite de Faturamento</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">Até R$ 81.000,00 por ano (Proporcionalizado se aberto no meio do ano)</td>
+                                            </tr>
+                                            <tr style="background: rgba(255, 255, 255, 0.05);">
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Tributação</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">DAS (Documento de Arrecadação do Simples Nacional): Valor fixo mensal que inclui INSS, ICMS e/ou ISS</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Natureza Jurídica</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">Empresário Individual. Não pode ter sócios</td>
+                                            </tr>
+                                            <tr style="background: rgba(255, 255, 255, 0.05);">
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Outras Regras</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">Pode ter apenas 1 (um) empregado contratado (CLT), que receba o salário-mínimo ou o piso da categoria</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-4">
+                                    <p class="text-sm font-semibold text-yellow-800">
+                                        <strong>Observação:</strong> O MEI é ideal para o começo da carreira PJ, mas possui restrições de atividades (não inclui, por exemplo, médicos, dentistas, engenheiros ou a maioria das atividades de tecnologia de alto nível).
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- ME -->
+                            <div class="holographic-card">
+                                <div class="flex items-center mb-6">
+                                    <span class="text-4xl mr-4">🏢</span>
+                                    <h4 class="text-2xl font-bold" style="color: var(--text-primary);">B. Microempresa (ME)</h4>
+                                </div>
+                                
+                                <div class="overflow-x-auto">
+                                    <table class="w-full mb-6">
+                                        <thead>
+                                            <tr style="background: rgba(255, 255, 255, 0.1);">
+                                                <th class="text-left p-4 font-semibold" style="color: var(--text-primary);">Característica</th>
+                                                <th class="text-left p-4 font-semibold" style="color: var(--text-primary);">Detalhes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Limite de Faturamento</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">Até R$ 360.000,00 por ano</td>
+                                            </tr>
+                                            <tr style="background: rgba(255, 255, 255, 0.05);">
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Tributação</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">Pode optar pelo Simples Nacional, Lucro Presumido ou Lucro Real. No Simples Nacional, a alíquota de impostos é calculada sobre o faturamento, variando conforme a atividade</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Natureza Jurídica</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">Pode ser Empresário Individual (EI), Sociedade Limitada (Ltda.) ou Sociedade Limitada Unipessoal (SLU)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="bg-blue-100 border-l-4 border-blue-500 p-4 mb-4">
+                                    <p class="text-sm font-semibold text-blue-800">
+                                        <strong>Observação:</strong> É o regime mais comum para quem ultrapassou o limite do MEI e já permite a contratação de mais funcionários. O profissional se torna uma ME automaticamente se ultrapassar o teto do MEI em até 20%.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- EPP -->
+                            <div class="holographic-card">
+                                <div class="flex items-center mb-6">
+                                    <span class="text-4xl mr-4">🏭</span>
+                                    <h4 class="text-2xl font-bold" style="color: var(--text-primary);">C. Empresa de Pequeno Porte (EPP)</h4>
+                                </div>
+                                
+                                <div class="overflow-x-auto">
+                                    <table class="w-full mb-6">
+                                        <thead>
+                                            <tr style="background: rgba(255, 255, 255, 0.1);">
+                                                <th class="text-left p-4 font-semibold" style="color: var(--text-primary);">Característica</th>
+                                                <th class="text-left p-4 font-semibold" style="color: var(--text-primary);">Detalhes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Limite de Faturamento</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">De R$ 360.000,01 até R$ 4.800.000,00 por ano</td>
+                                            </tr>
+                                            <tr style="background: rgba(255, 255, 255, 0.05);">
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Tributação</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">Assim como a ME, pode optar pelo Simples Nacional, Lucro Presumido ou Lucro Real. As alíquotas do Simples Nacional são mais elevadas do que as de uma ME</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-4 font-semibold" style="color: var(--text-primary);">Natureza Jurídica</td>
+                                                <td class="p-4" style="color: var(--text-secondary);">Geralmente Sociedade Limitada (Ltda.) ou Sociedade Limitada Unipessoal (SLU)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="bg-green-100 border-l-4 border-green-500 p-4 mb-4">
+                                    <p class="text-sm font-semibold text-green-800">
+                                        <strong>Observação:</strong> É o regime para prestadores de serviço individuais (como consultores de alto valor) ou empresas de serviço com estrutura maior.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Implicações Fiscais -->
+            <div class="lesson-card mt-12">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Implicações Fiscais e Riscos para a Contratante</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="holographic-card">
+                                <div class="flex items-center mb-4">
+                                    <span class="text-3xl mr-4">💰</span>
+                                    <h4 class="text-xl font-bold" style="color: var(--text-primary);">Benefícios Fiscais</h4>
+                                </div>
+                                <p class="text-sm mb-4" style="color: var(--text-secondary);">
+                                    Ao contratar um PJ, os custos diretos da sua empresa caem drasticamente, pois você não paga:
+                                </p>
+                                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                    <li class="flex items-start">
+                                        <span class="text-green-500 mr-2">✓</span>
+                                        <span>FGTS (8%)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-green-500 mr-2">✓</span>
+                                        <span>INSS Patronal (cerca de 20%)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-green-500 mr-2">✓</span>
+                                        <span>Férias + 1/3, 13º Salário e Aviso Prévio</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="holographic-card">
+                                <div class="flex items-center mb-4">
+                                    <span class="text-3xl mr-4">⚠️</span>
+                                    <h4 class="text-xl font-bold" style="color: var(--text-primary);">Riscos Financeiros</h4>
+                                </div>
+                                <div class="bg-red-100 border-l-4 border-red-500 p-4">
+                                    <p class="text-sm font-semibold text-red-800">
+                                        <strong>ATENÇÃO:</strong> Se a Justiça do Trabalho, em uma reclamação futura, reconhecer o vínculo CLT, sua empresa será obrigada a pagar todas essas verbas retroativas, corrigidas e acrescidas de multas (como a multa de 40% do FGTS), o que pode ser financeiramente devastador.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <div class="holographic-card">
+                                <div class="flex items-center mb-4">
+                                    <span class="text-3xl mr-4">🏆</span>
+                                    <h4 class="text-xl font-bold" style="color: var(--text-primary);">A Regra de Ouro</h4>
+                                </div>
+                                <div class="bg-yellow-100 border-l-4 border-yellow-500 p-6">
+                                    <p class="text-lg font-semibold text-yellow-800">
+                                        <strong>Contrate o PJ pela sua autonomia, expertise e pela entrega do serviço, e jamais para preencher um posto de trabalho que deveria ser CLT.</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Seção: Desafios na Gestão de PJ -->
     <section id="desafios" class="py-20 relative z-10" style="background: var(--bg-secondary);">
         <div class="max-w-7xl mx-auto px-6">
