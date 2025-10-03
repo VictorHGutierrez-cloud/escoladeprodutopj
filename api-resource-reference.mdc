@@ -1,0 +1,142 @@
+# Factorial API Resource Reference
+
+## Quick Endpoint Reference
+
+### **Employee Management**
+```
+GET    /api/2025-07-01/resources/employees/employees
+POST   /api/2025-07-01/resources/employees/employees
+GET    /api/2025-07-01/resources/employees/employees/{id}
+PUT    /api/2025-07-01/resources/employees/employees/{id}
+```
+
+### **Contract Management**
+```
+GET    /api/2025-07-01/resources/contracts/contract_versions
+POST   /api/2025-07-01/resources/contracts/contract_versions
+GET    /api/2025-07-01/resources/contracts/contract_versions/{id}
+PUT    /api/2025-07-01/resources/contracts/contract_versions/{id}
+```
+
+### **Attendance & Time Tracking**
+```
+GET    /api/2025-07-01/resources/attendance/shifts
+POST   /api/2025-07-01/resources/attendance/shifts
+GET    /api/2025-07-01/resources/attendance/shifts/{id}
+PUT    /api/2025-07-01/resources/attendance/shifts/{id}
+
+# Specialized attendance endpoints
+POST   /api/2025-07-01/resources/attendance/shifts/clock_in
+POST   /api/2025-07-01/resources/attendance/shifts/clock_out
+POST   /api/2025-07-01/resources/attendance/shifts/break_start
+POST   /api/2025-07-01/resources/attendance/shifts/break_end
+```
+
+### **ATS (Applicant Tracking)**
+```
+GET    /api/2025-07-01/resources/ats/job_postings
+POST   /api/2025-07-01/resources/ats/job_postings
+GET    /api/2025-07-01/resources/ats/job_postings/{id}
+PUT    /api/2025-07-01/resources/ats/job_postings/{id}
+
+GET    /api/2025-07-01/resources/ats/candidates
+POST   /api/2025-07-01/resources/ats/candidates
+GET    /api/2025-07-01/resources/ats/candidates/{id}
+PUT    /api/2025-07-01/resources/ats/candidates/{id}
+
+GET    /api/2025-07-01/resources/ats/applications
+POST   /api/2025-07-01/resources/ats/applications
+GET    /api/2025-07-01/resources/ats/applications/{id}
+PUT    /api/2025-07-01/resources/ats/applications/{id}
+
+# Special ATS endpoints
+POST   /api/2025-07-01/resources/ats/applications/apply
+POST   /api/2025-07-01/resources/ats/job_postings/duplicate
+```
+
+### **Performance Management**
+```
+GET    /api/2025-07-01/resources/performance/review_processes
+POST   /api/2025-07-01/resources/performance/review_processes
+GET    /api/2025-07-01/resources/performance/review_processes/{id}
+PUT    /api/2025-07-01/resources/performance/review_processes/{id}
+
+GET    /api/2025-07-01/resources/performance/agreements
+POST   /api/2025-07-01/resources/performance/agreements
+GET    /api/2025-07-01/resources/performance/agreements/{id}
+PUT    /api/2025-07-01/resources/performance/agreements/{id}
+```
+
+### **Time Off Management**
+```
+GET    /api/2025-07-01/resources/timeoff/leaves
+POST   /api/2025-07-01/resources/timeoff/leaves
+GET    /api/2025-07-01/resources/timeoff/leaves/{id}
+PUT    /api/2025-07-01/resources/timeoff/leaves/{id}
+
+GET    /api/2025-07-01/resources/timeoff/policies
+POST   /api/2025-07-01/resources/timeoff/policies
+GET    /api/2025-07-01/resources/timeoff/policies/{id}
+PUT    /api/2025-07-01/resources/timeoff/policies/{id}
+```
+
+### **Document Management**
+```
+GET    /api/2025-07-01/resources/documents/documents
+POST   /api/2025-07-01/resources/documents/documents
+GET    /api/2025-07-01/resources/documents/documents/{id}
+PUT    /api/2025-07-01/resources/documents/documents/{id}
+
+# Special document operations
+POST   /api/2025-07-01/resources/documents/documents/move_to_trash_bin
+POST   /api/2025-07-01/resources/documents/documents/restore_from_trash_bin
+POST   /api/2025-07-01/resources/documents/download_urls/bulk_create
+```
+
+### **Custom Resources**
+```
+GET    /api/2025-07-01/resources/custom_resources/schemas
+POST   /api/2025-07-01/resources/custom_resources/schemas
+GET    /api/2025-07-01/resources/custom_resources/schemas/{id}
+PUT    /api/2025-07-01/resources/custom_resources/schemas/{id}
+
+GET    /api/2025-07-01/resources/custom_resources/values
+POST   /api/2025-07-01/resources/custom_resources/values
+GET    /api/2025-07-01/resources/custom_resources/values/{id}
+PUT    /api/2025-07-01/resources/custom_resources/values/{id}
+```
+
+### **Webhook Management**
+```
+GET    /api/2025-07-01/resources/api_public/webhook_subscriptions
+POST   /api/2025-07-01/resources/api_public/webhook_subscriptions
+GET    /api/2025-07-01/resources/api_public/webhook_subscriptions/{id}
+PUT    /api/2025-07-01/resources/api_public/webhook_subscriptions/{id}
+```
+
+## Common Query Parameters
+
+Most list endpoints support:
+- `id` - Filter by specific ID
+- `company_id` - Filter by company
+- `limit` - Pagination limit
+- `page` - Page number for pagination
+
+## Response Format
+
+Standard response structure:
+```json
+{
+  "data": [...],
+  "meta": {
+    "has_previous_page": false,
+    "has_next_page": true,
+    "limit": 25,
+    "total": 100
+  }
+}
+```
+description:
+globs:
+alwaysApply: true
+---

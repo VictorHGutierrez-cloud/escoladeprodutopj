@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Aula: Gestão de Prestadores de Serviço (PJ) | Escola de Produto</title>
+    
+    <!-- Enhanced CSS Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/TextPlugin.min.js"></script>
+    
+    <!-- Factorial Font: Fira Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <!-- 🚀 ULTIMATE ENHANCED VISUAL SYSTEM -->
+    <link rel="stylesheet" href="enhanced-styles.css">
+    
+    <!-- 🔥 CRITICAL FALLBACK CSS FOR IMMEDIATE LOADING -->
+    <style>
+        /* 🎯 RADICAL RED BOXES - CRITICAL INLINE CSS */
+        .radical-red-box-title {
+            background: #FF355E !important;
+            border: none !important;
+            border-radius: 20px !important;
+            padding: 25px 35px !important;
+            margin: 15px 0 !important;
+            box-shadow: 
+                0 0 25px rgba(255, 53, 94, 0.4),
+                0 0 50px rgba(255, 53, 94, 0.15) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            z-index: 10 !important;
+        }
+        
+        .radical-red-box-subtitle {
+            background: rgba(255, 53, 94, 0.06) !important;
+            border: 2px solid rgba(255, 53, 94, 0.8) !important;
+            border-radius: 20px !important;
+            padding: 20px 25px !important;
+            margin: 12px 0 !important;
+            box-shadow: 
+                0 0 20px rgba(255, 53, 94, 0.25),
+                0 0 40px rgba(255, 53, 94, 0.1) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            z-index: 10 !important;
+        }
+        
+        /* Menu Lateral de Navegação */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #25253D, #FF355E);
+            z-index: 9999;
+            transition: left 0.3s ease-in-out;
+            overflow-y: auto;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sidebar.open {
+            left: 0;
+        }
+        
+        .sidebar-header {
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        .sidebar-nav {
+            padding: 2rem 0;
+        }
+        
+        .sidebar-nav-item {
+            display: block;
+            padding: 1rem 2rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: #FFB940;
+            transform: translateX(10px);
+        }
+        
+        .sidebar-nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: #FFB940;
+        }
+        
+        .sidebar-footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .sidebar-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10000;
+            background: #FF355E;
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 53, 94, 0.4);
+            pointer-events: auto;
+            user-select: none;
+        }
+        
+        .sidebar-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 53, 94, 0.6);
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Ensure holographic cards always work */
+        .holographic-card-ultimate {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid transparent;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4), 0 0 60px rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: pulse-holographic 4s ease infinite;
+        }
+        
+        .holographic-card-ultimate::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b, #fb5607);
+            background-size: 400% 400%;
+            border-radius: inherit;
+            animation: aurora-dance 6s linear infinite;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            -webkit-mask-composite: xor;
+        }
+        
+        .holographic-card-ultimate:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.5), 0 0 40px rgba(131, 56, 236, 0.5), 0 0 60px rgba(58, 134, 255, 0.5);
+            animation: liquid-morph 4s ease infinite;
+        }
+        
+        @keyframes pulse-holographic {
+            0%, 100% { 
+                background-position: 0% 50%;
+                box-shadow: 0 0 30px rgba(255, 0, 110, 0.6);
+            }
+            50% { 
+                background-position: 100% 50%;
+                box-shadow: 0 0 50px rgba(131, 56, 236, 0.8), 0 0 80px rgba(58, 134, 255, 0.6);
+            }
+        }
+        
+        @keyframes aurora-dance {
+            0% { 
+                background-position: 0% 50%;
+                filter: hue-rotate(0deg) brightness(1) saturate(1);
+            }
+            25% { 
+                background-position: 100% 50%;
+                filter: hue-rotate(90deg) brightness(1.2) saturate(1.3);
+            }
+            50% { 
+                background-position: 0% 100%;
+                filter: hue-rotate(180deg) brightness(1) saturate(1);
+            }
+            75% { 
+                background-position: 100% 0%;
+                filter: hue-rotate(270deg) brightness(1.2) saturate(1.3);
+            }
+            100% { 
+                background-position: 0% 50%;
+                filter: hue-rotate(360deg) brightness(1) saturate(1);
+            }
+        }
+        
+        @keyframes liquid-morph {
+            0%, 100% { 
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                background-position: 0% 50%;
+            }
+            25% { 
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+                background-position: 25% 75%;
+            }
+            50% { 
+                border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%;
+                background-position: 100% 50%;
+            }
+            75% { 
+                border-radius: 60% 40% 60% 40% / 70% 30% 50% 60%;
+                background-position: 75% 25%;
+            }
+        }
+        
+        /* 🔥 FORCE VISIBILITY AND PREVENT FLICKERING */
+        .holographic-card-ultimate,
+        .card-hover {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            min-height: 200px;
+        }
+        
+        /* Ensure smooth loading */
+        .holographic-card-ultimate.loaded {
+            animation-play-state: running;
+        }
+        
+        /* Fallback for browsers that don't support advanced CSS */
+        @supports not (backdrop-filter: blur(10px)) {
+            .holographic-card-ultimate {
+                background: rgba(255, 255, 255, 0.15);
+                border: 2px solid #3b82f6;
+            }
+        }
+    </style>
+    
+    <!-- Enhanced Custom Styles -->
+    <style>
+        :root {
+            /* Factorial RH Brand */
+            --brand-radical: #FF355E; /* Radical Red */
+            --brand-viridian: #07A2AD; /* Viridian Green */
+            --brand-sunbeam: #FFB940; /* Sunbeam */
+            --brand-tangerine: #FF9153; /* Tangerine */
+            --brand-midnight: #25253D; /* Midnight */
+
+            --primary: var(--brand-midnight);
+            --secondary: var(--brand-sunbeam);
+            --accent: var(--brand-viridian);
+            --dark: var(--brand-midnight);
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, var(--brand-radical) 0%, var(--brand-tangerine) 50%, var(--brand-sunbeam) 100%);
+            --neon-blue: var(--brand-viridian);
+            --neon-orange: var(--brand-tangerine);
+            --neon-green: var(--brand-viridian);
+            --cyber-purple: var(--brand-radical);
+            --gold: var(--brand-sunbeam);
+            --platinum: #e5e4e2;
+            
+            /* Dark mode variables */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-accent: var(--brand-radical);
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-accent: #60a5fa;
+            --border-color: #475569;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Fira Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--brand-radical) 0%, var(--brand-tangerine) 50%, var(--brand-sunbeam) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(7, 162, 173, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 145, 83, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 185, 64, 0.2) 0%, transparent 50%);
+            animation: pulse-glow 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .floating-3d {
+            animation: float-3d 8s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(180deg); }
+        }
+        
+        @keyframes float-3d {
+            0%, 100% { 
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
+            }
+            25% { 
+                transform: translateY(-15px) rotateX(90deg) rotateY(90deg) rotateZ(0deg); 
+            }
+            50% { 
+                transform: translateY(-30px) rotateX(180deg) rotateY(180deg) rotateZ(90deg); 
+            }
+            75% { 
+                transform: translateY(-15px) rotateX(270deg) rotateY(270deg) rotateZ(180deg); 
+            }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--brand-sunbeam), var(--brand-tangerine));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 185, 64, 0.5);
+        }
+        
+        .neon-text {
+            color: var(--text-accent);
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cyber-text {
+            font-family: 'Fira Sans', sans-serif;
+            color: var(--text-accent);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02) rotateY(5deg);
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 30px rgba(0, 212, 255, 0.3),
+                0 0 60px rgba(139, 92, 246, 0.2);
+        }
+        
+        .holographic-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .holographic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--brand-radical), var(--brand-viridian));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .holographic-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .holographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--brand-viridian), var(--brand-tangerine));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--brand-viridian);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            text-shadow: 0 0 10px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+        
+        .cyber-button {
+            background: linear-gradient(135deg, var(--brand-radical), var(--brand-tangerine));
+            border: none;
+            color: white;
+            font-family: 'Fira Sans', sans-serif;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+        
+        .cyber-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+        
+        .stat-counter {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            font-family: 'Fira Sans', sans-serif;
+            background: linear-gradient(135deg, var(--brand-sunbeam), var(--brand-tangerine));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Estilos para abas da calculadora */
+        .tab-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--brand-radical), var(--brand-tangerine));
+            color: white;
+            border: 1px solid transparent;
+        }
+
+        .tab-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            transition: all 0.3s ease;
+        }
+
+        .tab-content.hidden {
+            display: none;
+        }
+        
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .solution-tab {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .solution-tab.active {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 500px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 400px;
+                max-width: 95%;
+                padding: 1rem;
+            }
+            
+            .chart-container .absolute.top-0 {
+                padding: 1rem;
+            }
+            
+            .chart-container .absolute.bottom-0 {
+                padding: 1rem;
+            }
+            
+            .chart-container .absolute.bottom-0 .flex {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .hero-gradient h1 {
+                font-size: 2.5rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            .cyber-button {
+                font-size: 1rem !important;
+                padding: 0.75rem 1.5rem !important;
+            }
+            
+            .floating-3d {
+                font-size: 2rem !important;
+            }
+            
+            .holographic-card {
+                padding: 1.5rem !important;
+            }
+        }
+        
+        /* Touch device enhancements */
+        @media (hover: none) and (pointer: coarse) {
+            .card-hover:hover {
+                transform: none;
+            }
+            
+            .cyber-button:hover {
+                transform: none;
+            }
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .neon-text {
+                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+            }
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float-slow 20s infinite linear;
+        }
+        
+        @keyframes float-slow {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #f59e0b, #f97316, #10b981);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gradient-border:hover::before {
+            opacity: 1;
+        }
+        
+        .typing-effect {
+            overflow: hidden;
+            border-right: 3px solid var(--secondary);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--secondary); }
+        }
+
+        /* Unified hero title style (brand color, low neon) */
+        .hero-title-part {
+            color: var(--light);
+            text-shadow: none;
+        }
+        
+        /* Aula specific styles */
+        .lesson-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .lesson-number {
+            background: linear-gradient(135deg, var(--brand-radical), var(--brand-tangerine));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .comparison-table {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--brand-radical), var(--brand-tangerine));
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist-icon {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .faq-item {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            margin: 1rem 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question {
+            background: linear-gradient(135deg, var(--brand-viridian), var(--brand-tangerine));
+            color: white;
+            padding: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: linear-gradient(135deg, var(--brand-tangerine), var(--brand-radical));
+        }
+        
+        .faq-answer {
+            padding: 1.5rem;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Lateral de Navegação -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <!-- Overlay do Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button class="sidebar-close" id="sidebarClose">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        
+        <div class="sidebar-header">
+            <img src="Logo/Color/Factorial_logo_radical.png" alt="Factorial RH" class="sidebar-logo">
+            <div class="sidebar-title">Escola de Produto</div>
+            <div class="sidebar-subtitle">Gestão de PJ</div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#intro" class="sidebar-nav-item" data-section="intro">
+                📚 Introdução
+            </a>
+            <a href="#o-que-e-pj" class="sidebar-nav-item" data-section="o-que-e-pj">
+                🏢 O que é PJ?
+            </a>
+            <a href="#clt-vs-pj" class="sidebar-nav-item" data-section="clt-vs-pj">
+                ⚖️ CLT vs PJ
+            </a>
+            <a href="#desafios" class="sidebar-nav-item" data-section="desafios">
+                🚧 Desafios
+            </a>
+            <a href="#como-factorial-ajuda" class="sidebar-nav-item" data-section="como-factorial-ajuda">
+                🚀 Como a Factorial Ajuda
+            </a>
+            <a href="#casos-praticos" class="sidebar-nav-item" data-section="casos-praticos">
+                💼 Casos Práticos
+            </a>
+            <a href="#boas-praticas" class="sidebar-nav-item" data-section="boas-praticas">
+                ✅ Boas Práticas
+            </a>
+            <a href="#implementacao" class="sidebar-nav-item" data-section="implementacao">
+                🔧 Implementação
+            </a>
+            <a href="#beneficios" class="sidebar-nav-item" data-section="beneficios">
+                📈 Benefícios
+            </a>
+            <a href="#checklist" class="sidebar-nav-item" data-section="checklist">
+                📋 Checklist
+            </a>
+            <a href="#faq" class="sidebar-nav-item" data-section="faq">
+                ❓ FAQ
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="text-white text-sm opacity-80">
+                💡 Use o menu para navegar pelas aulas
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3 text-white">
+                    <img src="Logo/Color/Factorial_logo_radical.png" alt="Factorial RH" class="h-8 w-auto hidden sm:block" />
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#intro" class="nav-link text-white font-medium">Introdução</a>
+                    <a href="#o-que-e-pj" class="nav-link text-white font-medium">O que é PJ?</a>
+                    <a href="#como-factorial-ajuda" class="nav-link text-white font-medium">Como Ajuda</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                        <svg id="sun-icon" class="w-5 h-5 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="moon-icon" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- Hero Section -->
+<section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden" id="intro">
+    <div class="text-center text-white z-10 px-6">
+        <div class="radical-red-box-title">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                <span class="hero-title-part">📚 Aula Completa:</span>
+                <br>
+                <span class="hero-title-part">Gestão de Prestadores</span>
+                <br>
+                <span class="hero-title-part">de Serviço (PJ)</span>
+            </h1>
+        </div>
+        <div class="radical-red-box-title">
+            <p class="text-xl md:text-2xl mb-8 max-w-4xl mx-auto text-white leading-relaxed">
+                Aprenda tudo sobre como gerenciar prestadores PJ de forma eficiente, legal e profissional. Da teoria à prática, com a Factorial como sua aliada.
+            </p>
+        </div>
+        <div class="mb-8">
+            <div class="inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full font-bold text-lg">
+                🎓 Escola de Produto - Conteúdo Educativo Completo
+            </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <a href="#o-que-e-pj" class="btn-holographic cyber-button text-white font-bold py-4 px-8 rounded-lg text-lg transform hover:scale-105 shadow-lg relative overflow-hidden">
+                <span class="relative z-10">Começar Aula</span>
+            </a>
+            <a href="#casos-praticos" class="btn-energy cyber-button bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold py-4 px-8 rounded-lg text-lg transform hover:scale-105 relative overflow-hidden">
+                <span class="relative z-10">Ver Casos Práticos</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Elegant Floating Background Elements -->
+    <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div class="absolute floating" style="top:8%; left:12%; animation-delay:0s;">
+            <div class="w-24 h-24 bg-gradient-to-br from-blue-400/20 to-purple-500/20 backdrop-blur-sm rounded-3xl transform rotate-12 border border-white/20"></div>
+        </div>
+        <div class="absolute floating" style="top:18%; left:75%; animation-delay:1.2s;">
+            <div class="w-20 h-20 bg-gradient-to-br from-pink-400/15 to-red-500/15 backdrop-blur-sm rounded-full border border-white/15"></div>
+        </div>
+        <div class="absolute floating" style="top:42%; left:18%; animation-delay:2.4s;">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-400/20 to-blue-500/20 backdrop-blur-sm transform rotate-45 border border-white/20"></div>
+        </div>
+        <div class="absolute floating" style="top:65%; left:82%; animation-delay:3.6s;">
+            <div class="w-28 h-28 bg-gradient-to-br from-yellow-400/15 to-orange-500/15 backdrop-blur-sm rounded-2xl transform -rotate-12 border border-white/15"></div>
+        </div>
+        <div class="absolute floating" style="top:72%; left:28%; animation-delay:4.8s;">
+            <div class="w-18 h-18 bg-gradient-to-br from-indigo-400/20 to-purple-500/20 backdrop-blur-sm rounded-full border border-white/20"></div>
+        </div>
+        <div class="absolute floating" style="top:22%; left:52%; animation-delay:6s;">
+            <div class="w-32 h-32 bg-gradient-to-br from-teal-400/15 to-cyan-500/15 backdrop-blur-sm rounded-3xl transform rotate-6 border border-white/15"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção: O que é PJ? -->
+<section id="o-que-e-pj" class="py-20 relative z-10" style="background: var(--bg-secondary);">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                <span class="cyber-text">🏢 O QUE É PJ?</span>
+                <br>
+                <span class="neon-text">Pessoa Jurídica</span>
+                <br>
+                <span class="gradient-text">Conceitos Fundamentais</span>
+            </h2>
+            <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                Entenda os conceitos básicos e características principais da contratação de prestadores de serviço PJ.
+            </p>
+        </div>
+
+        <div class="lesson-card">
+            <div class="flex items-start space-x-6">
+                <div class="lesson-number">1</div>
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">Definição de PJ</h3>
+                    <p class="text-lg mb-6" style="color: var(--text-secondary);">
+                        PJ é a sigla para <strong>Pessoa Jurídica</strong>, uma forma de contratação onde profissionais prestam serviços à empresa através de seu próprio CNPJ (Cadastro Nacional da Pessoa Jurídica).
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="holographic-card p-6 rounded-xl">
+                            <h4 class="text-xl font-bold mb-4 text-blue-600">📋 Principais Características</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-center">
+                                    <span class="text-2xl mr-3">🏢</span>
+                                    <span>Profissional possui CNPJ próprio (MEI, ME, LTDA, etc.)</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-2xl mr-3">🤝</span>
+                                    <span>Relação comercial entre empresas (B2B)</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-2xl mr-3">📄</span>
+                                    <span>Emissão de Nota Fiscal de Serviço</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-2xl mr-3">❌</span>
+                                    <span>Não tem vínculo empregatício (CLT)</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-2xl mr-3">🎯</span>
+                                    <span>Maior autonomia e flexibilidade</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-2xl mr-3">💼</span>
+                                    <span>Responsável pelos próprios impostos e contribuições</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="holographic-card p-6 rounded-xl">
+                            <h4 class="text-xl font-bold mb-4 text-green-600">💡 Por que usar PJ?</h4>
+                            <div class="space-y-4">
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <h5 class="font-bold text-green-800 mb-2">Para a Empresa:</h5>
+                                    <ul class="text-sm text-green-700 space-y-1">
+                                        <li>• Redução de custos operacionais</li>
+                                        <li>• Flexibilidade para escalar equipe</li>
+                                        <li>• Acesso a especialistas</li>
+                                        <li>• Menor burocracia</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-bold text-blue-800 mb-2">Para o Prestador:</h5>
+                                    <ul class="text-sm text-blue-700 space-y-1">
+                                        <li>• Maior remuneração líquida</li>
+                                        <li>• Flexibilidade de horários</li>
+                                        <li>• Autonomia profissional</li>
+                                        <li>• Múltiplos clientes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção: CLT vs PJ -->
+<section id="clt-vs-pj" class="py-20 relative z-10" style="background: var(--bg-primary);">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                <span class="cyber-text">⚖️ CLT vs PJ</span>
+                <br>
+                <span class="neon-text">Comparação Detalhada</span>
+                <br>
+                <span class="gradient-text">Entenda as Diferenças</span>
+            </h2>
+            <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                Conheça as principais diferenças entre contratação CLT e prestação de serviços PJ.
+            </p>
+        </div>
+
+        <div class="lesson-card">
+            <div class="flex items-start space-x-6">
+                <div class="lesson-number">2</div>
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Tabela Comparativa</h3>
+                    
+                    <div class="comparison-table">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Aspecto</th>
+                                    <th class="text-center">CLT (Empregado)</th>
+                                    <th class="text-center">PJ (Prestador de Serviço)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-semibold">Tipo de Vínculo</td>
+                                    <td class="text-center">Vínculo empregatício</td>
+                                    <td class="text-center">Relação comercial</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Remuneração</td>
+                                    <td class="text-center">Salário fixo + benefícios</td>
+                                    <td class="text-center">Valor por serviço/projeto</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Benefícios</td>
+                                    <td class="text-center">13º salário, férias, FGTS</td>
+                                    <td class="text-center">Sem benefícios trabalhistas</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Encargos</td>
+                                    <td class="text-center">Empresa paga (INSS, FGTS)</td>
+                                    <td class="text-center">PJ paga próprios impostos</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Horário</td>
+                                    <td class="text-center">Horário fixo e controle de ponto</td>
+                                    <td class="text-center">Flexibilidade de horário</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Subordinação</td>
+                                    <td class="text-center">Subordinação ao empregador</td>
+                                    <td class="text-center">Autonomia na execução</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Estabilidade</td>
+                                    <td class="text-center">Estabilidade maior</td>
+                                    <td class="text-center">Pode ter múltiplos clientes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                        <h4 class="text-lg font-bold text-yellow-800 mb-3">⚠️ Atenção: Pejotização</h4>
+                        <p class="text-yellow-700 mb-4">
+                            <strong>Pejotização</strong> é a prática ilegal de contratar como PJ quando deveria ser CLT! 
+                            É importante estruturar a relação corretamente para evitar problemas legais.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-red-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-red-800 mb-2">❌ Sinais de Risco (evite):</h5>
+                                <ul class="text-sm text-red-700 space-y-1">
+                                    <li>• Subordinação direta (ordens constantes)</li>
+                                    <li>• Horário fixo obrigatório</li>
+                                    <li>• Exclusividade de serviços</li>
+                                    <li>• Mesmas atividades de um CLT</li>
+                                    <li>• Controle rígido de tarefas diárias</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-green-800 mb-2">✅ O que é Permitido:</h5>
+                                <ul class="text-sm text-green-700 space-y-1">
+                                    <li>• Prestação de serviços específicos</li>
+                                    <li>• Autonomia na execução</li>
+                                    <li>• Pagamento por projeto/entrega</li>
+                                    <li>• Possibilidade de atender outros clientes</li>
+                                    <li>• Sem vínculo de subordinação</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção: Desafios na Gestão de PJ -->
+<section id="desafios" class="py-20 relative z-10" style="background: var(--bg-secondary);">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                <span class="cyber-text">🚧 DESAFIOS</span>
+                <br>
+                <span class="neon-text">Na Gestão de PJ</span>
+                <br>
+                <span class="gradient-text">Problemas Comuns</span>
+            </h2>
+            <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                Empresas enfrentam diversos desafios ao gerenciar prestadores de serviço PJ. Conheça os principais e como superá-los.
+            </p>
+        </div>
+
+        <div class="lesson-card">
+            <div class="flex items-start space-x-6">
+                <div class="lesson-number">3</div>
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Principais Desafios</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div class="holographic-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <span class="text-3xl mr-4">🗂️</span>
+                                    <h4 class="text-xl font-bold" style="color: var(--text-primary);">Documentação e Contratos</h4>
+                                </div>
+                                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                    <li>• Contratos de prestação de serviço precisam ser claros e completos</li>
+                                    <li>• Armazenamento seguro de documentos (CNPJs, contratos, notas fiscais)</li>
+                                    <li>• Renovações e alterações contratuais</li>
+                                    <li>• Gestão de assinaturas digitais</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="holographic-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <span class="text-3xl mr-4">⏰</span>
+                                    <h4 class="text-xl font-bold" style="color: var(--text-primary);">Controle de Horas e Entregas</h4>
+                                </div>
+                                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                    <li>• Registro de horas trabalhadas (quando aplicável)</li>
+                                    <li>• Acompanhamento de entregas e projetos</li>
+                                    <li>• Controle de prazos e deadlines</li>
+                                    <li>• Relatórios de produtividade</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="holographic-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <span class="text-3xl mr-4">💰</span>
+                                    <h4 class="text-xl font-bold" style="color: var(--text-primary);">Pagamentos e Fiscal</h4>
+                                </div>
+                                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                    <li>• Controle de notas fiscais recebidas</li>
+                                    <li>• Gestão de pagamentos e prazos</li>
+                                    <li>• Conferência de valores e retenções fiscais</li>
+                                    <li>• Organização de despesas por projeto/centro de custo</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="holographic-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <span class="text-3xl mr-4">👥</span>
+                                    <h4 class="text-xl font-bold" style="color: var(--text-primary);">Comunicação e Integração</h4>
+                                </div>
+                                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                    <li>• Onboarding de novos prestadores</li>
+                                    <li>• Comunicação interna com a equipe</li>
+                                    <li>• Acesso a sistemas e ferramentas</li>
+                                    <li>• Alinhamento de expectativas e processos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

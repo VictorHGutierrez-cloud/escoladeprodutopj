@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de PJ com Factorial - Escola de Produto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            border: none;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #2c3e50;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .content {
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 60px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            border-bottom: none;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+
+        h4 {
+            color: #2c3e50;
+            margin: 15px 0 10px 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #dee2e6;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12);
+        }
+
+        .card.warning {
+            background: linear-gradient(135deg, #ffe8e8, #fdd5d5);
+            border-color: #e74c3c;
+        }
+
+        .card.warning::before {
+            background: #e74c3c;
+        }
+
+        .card.success {
+            background: linear-gradient(135deg, #e8f8e8, #d5f4d5);
+            border-color: #27ae60;
+        }
+
+        .card.success::before {
+            background: #27ae60;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e8f4f8;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .icon {
+            margin-right: 8px;
+        }
+
+        .highlight {
+            background: #e8f4f8;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+
+        .checklist li:before {
+            content: "☐ ";
+            color: #3498db;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin: 10px 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .step {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            font-weight: bold;
+            margin-right: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .feature-list li:before {
+            content: "✅ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .pain-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pain-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .pain-list li:before {
+            content: "❌ ";
+            color: #e74c3c;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .total-section {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .total-section h2 {
+            color: white;
+            border: none;
+            margin: 0 0 15px 0;
+            padding: 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f4f8, #d5e8f4);
+            padding: 25px;
+            border-left: 4px solid #3498db;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffe8e8, #fdd5d5);
+            padding: 25px;
+            border-left: 4px solid #e74c3c;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f8e8, #d5f4d5);
+            padding: 25px;
+            border-left: 4px solid #27ae60;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            padding: 25px;
+            border-left: 4px solid #f39c12;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #2ecc71;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                border-radius: 5px;
+            }
+
+            header {
+                padding: 30px 15px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            h3 {
+                font-size: 1.2em;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85em;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            th, td {
+                padding: 10px 8px;
+            }
+
+            .step-number {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                font-size: 0.9em;
+            }
+
+            .card, .step, .highlight-box, .warning-box, .success-box, .info-box {
+                padding: 15px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Gestão de Prestadores de Serviço (PJ)</h1>
+            <p>Como a Factorial Ajuda - Escola de Produto</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#o-que-e">O que é PJ?</a></li>
+                <li><a href="#diferencas">CLT vs PJ</a></li>
+                <li><a href="#desafios">Desafios</a></li>
+                <li><a href="#factorial">Como a Factorial Ajuda</a></li>
+                <li><a href="#casos">Casos Práticos</a></li>
+                <li><a href="#implementacao">Implementação</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <section id="o-que-e">
+                <h2>1. O QUE É PJ? (Pessoa Jurídica)</h2>
+                <div class="highlight-box">
+                    <p><strong>PJ</strong> é a sigla para Pessoa Jurídica, uma forma de contratação onde profissionais prestam serviços à empresa através de seu próprio CNPJ (Cadastro Nacional da Pessoa Jurídica).</p>
+                </div>
+
+                <h3>Principais características:</h3>
+                <ul>
+                    <li><span class="icon">🏢</span> Profissional possui CNPJ próprio (MEI, ME, LTDA, etc.)</li>
+                    <li><span class="icon">🤝</span> Relação comercial entre empresas (B2B)</li>
+                    <li><span class="icon">📄</span> Emissão de Nota Fiscal de Serviço</li>
+                    <li><span class="icon">❌</span> Não tem vínculo empregatício (CLT)</li>
+                    <li><span class="icon">🎯</span> Maior autonomia e flexibilidade</li>
+                    <li><span class="icon">💼</span> Responsável pelos próprios impostos e contribuições</li>
+                </ul>
+            </section>
+
+            <section id="diferencas">
+                <h2>2. DIFERENÇAS ENTRE CLT E PJ</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CLT (Empregado)</th>
+                            <th>PJ (Prestador de Serviço)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vínculo empregatício</td>
+                            <td>Relação comercial</td>
+                        </tr>
+                        <tr>
+                            <td>Salário fixo + benefícios</td>
+                            <td>Valor por serviço/projeto</td>
+                        </tr>
+                        <tr>
+                            <td>13º salário, férias, FGTS</td>
+                            <td>Sem benefícios trabalhistas</td>
+                        </tr>
+                        <tr>
+                            <td>Empresa paga encargos (INSS, FGTS)</td>
+                            <td>PJ paga próprios impostos</td>
+                        </tr>
+                        <tr>
+                            <td>Horário fixo e controle de ponto</td>
+                            <td>Flexibilidade de horário</td>
+                        </tr>
+                        <tr>
+                            <td>Subordinação ao empregador</td>
+                            <td>Autonomia na execução</td>
+                        </tr>
+                        <tr>
+                            <td>Estabilidade maior</td>
+                            <td>Pode ter múltiplos clientes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="desafios">
+                <h2>3. DESAFIOS NA GESTÃO DE PJ</h2>
+                <p>Empresas enfrentam diversos desafios ao gerenciar prestadores de serviço PJ:</p>
+
+                <div class="grid">
+                    <div class="warning-box">
+                        <h3>🗂️ Documentação e Contratos</h3>
+                        <ul>
+                            <li>Contratos de prestação de serviço precisam ser claros e completos</li>
+                            <li>Armazenamento seguro de documentos (CNPJs, contratos, notas fiscais)</li>
+                            <li>Renovações e alterações contratuais</li>
+                            <li>Gestão de assinaturas digitais</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h3>⏰ Controle de Horas e Entregas</h3>
+                        <ul>
+                            <li>Registro de horas trabalhadas (quando aplicável)</li>
+                            <li>Acompanhamento de entregas e projetos</li>
+                            <li>Controle de prazos e deadlines</li>
+                            <li>Relatórios de produtividade</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h3>💰 Pagamentos e Fiscal</h3>
+                        <ul>
+                            <li>Controle de notas fiscais recebidas</li>
+                            <li>Gestão de pagamentos e prazos</li>
+                            <li>Conferência de valores e retenções fiscais</li>
+                            <li>Organização de despesas por projeto/centro de custo</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h3>👥 Comunicação e Integração</h3>
+                        <ul>
+                            <li>Onboarding de novos prestadores</li>
+                            <li>Comunicação interna com a equipe</li>
+                            <li>Acesso a sistemas e ferramentas</li>
+                            <li>Alinhamento de expectativas e processos</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="factorial">
+                <h2>4. COMO A FACTORIAL AJUDA NA GESTÃO DE PJ</h2>
+                <div class="success-box">
+                    <p><strong>A Factorial oferece uma plataforma completa de gestão de pessoas</strong> que também pode ser utilizada para gerenciar prestadores de serviço PJ de forma eficiente e profissional.</p>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">1</span>📋 Gestão de Contratos e Documentos</h3>
+                    <h4>Como funciona:</h4>
+                    <ul>
+                        <li>Cadastro completo do prestador PJ com todos os dados (CNPJ, endereço, contatos)</li>
+                        <li>Upload e armazenamento seguro de contratos de prestação de serviço</li>
+                        <li>Assinatura digital de documentos (integrada ao sistema)</li>
+                        <li>Templates personalizados de contratos</li>
+                        <li>Histórico completo de todas as versões contratuais</li>
+                        <li>Pasta digital individual para cada prestador</li>
+                        <li>Notificações de vencimento de contratos</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>💡 Benefício:</strong> Toda documentação organizada em um só lugar, acessível 24/7, com segurança e conformidade LGPD.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">2</span>⏱️ Controle de Horas e Projetos</h3>
+                    <h4>Como funciona:</h4>
+                    <ul>
+                        <li>Sistema de registro de ponto e horas trabalhadas (opcional para PJ)</li>
+                        <li>Alocação de prestadores em projetos e centros de custo</li>
+                        <li>Relatórios de horas por projeto/cliente</li>
+                        <li>Controle de banco de horas (quando aplicável)</li>
+                        <li>Dashboard visual com produtividade e entregas</li>
+                        <li>Integração com ferramentas de gestão de projetos via API</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>💡 Benefício:</strong> Visibilidade total sobre a alocação de recursos e custos por projeto, facilitando a gestão financeira.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">3</span>💵 Gestão Financeira e Pagamentos</h3>
+                    <h4>Como funciona:</h4>
+                    <ul>
+                        <li>Cadastro de informações bancárias do prestador</li>
+                        <li>Upload e armazenamento de notas fiscais</li>
+                        <li>Controle de pagamentos e datas de vencimento</li>
+                        <li>Gestão de despesas por projeto</li>
+                        <li>Relatórios financeiros consolidados</li>
+                        <li>Exportação de dados para sistemas contábeis</li>
+                        <li>Integração via API com ERPs e sistemas financeiros</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>💡 Benefício:</strong> Organização financeira impecável, reduzindo erros e atrasos em pagamentos.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">4</span>📊 Organograma e Times</h3>
+                    <h4>Como funciona:</h4>
+                    <ul>
+                        <li>Inclusão de prestadores PJ no organograma da empresa</li>
+                        <li>Criação de times mistos (CLT + PJ)</li>
+                        <li>Definição de gestores e responsáveis</li>
+                        <li>Visão clara de quem está alocado em cada projeto/departamento</li>
+                        <li>Diretório de pessoas com informações de contato</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>💡 Benefício:</strong> Clareza organizacional, facilitando comunicação e colaboração entre equipes.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">5</span>📢 Comunicação Interna</h3>
+                    <h4>Como funciona:</h4>
+                    <ul>
+                        <li>Painel de comunicação para toda equipe (CLT + PJ)</li>
+                        <li>Compartilhamento de comunicados e atualizações</li>
+                        <li>Pesquisas e feedbacks (pode incluir prestadores)</li>
+                        <li>Portal do colaborador com acesso personalizado</li>
+                        <li>Notificações automáticas por email</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>💡 Benefício:</strong> Prestadores PJ integrados à cultura e comunicação da empresa.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">6</span>🔌 Integrações via API</h3>
+                    <h4>Como funciona:</h4>
+                    <ul>
+                        <li>API completa para integração com outros sistemas</li>
+                        <li>Sincronização automática de dados com ERPs</li>
+                        <li>Conexão com ferramentas de gestão de projetos</li>
+                        <li>Webhooks para notificações em tempo real</li>
+                        <li>Importação e exportação de dados em massa</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>💡 Benefício:</strong> Ecossistema integrado, eliminando retrabalho e duplicação de dados.
+                    </div>
+                </div>
+            </section>
+
+            <section id="modulos">
+                <h2>5. MÓDULOS DA FACTORIAL PARA GESTÃO DE PJ</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Módulo</th>
+                            <th>Funcionalidade</th>
+                            <th>Uso com PJ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Documentos</td>
+                            <td>Gestão de arquivos</td>
+                            <td>Contratos, NF, CNPJ</td>
+                        </tr>
+                        <tr>
+                            <td>Contratos</td>
+                            <td>Versões contratuais</td>
+                            <td>Contratos de prestação</td>
+                        </tr>
+                        <tr>
+                            <td>Time Tracking</td>
+                            <td>Controle de horas</td>
+                            <td>Horas trabalhadas/projeto</td>
+                        </tr>
+                        <tr>
+                            <td>Centros de Custo</td>
+                            <td>Alocação financeira</td>
+                            <td>Custeio por projeto</td>
+                        </tr>
+                        <tr>
+                            <td>Times</td>
+                            <td>Organograma</td>
+                            <td>Estrutura organizacional</td>
+                        </tr>
+                        <tr>
+                            <td>Portal do Colaborador</td>
+                            <td>Acesso individual</td>
+                            <td>Portal para PJ</td>
+                        </tr>
+                        <tr>
+                            <td>Relatórios</td>
+                            <td>Dashboards</td>
+                            <td>Métricas de produtividade</td>
+                        </tr>
+                        <tr>
+                            <td>API</td>
+                            <td>Integrações</td>
+                            <td>Conexão com ERPs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="casos">
+                <h2>6. CASOS PRÁTICOS DE USO</h2>
+
+                <div class="highlight-box">
+                    <h3>Caso 1: Agência de Marketing Digital</h3>
+                    <p><strong>Situação:</strong> Agência com 15 CLTs e 25 freelancers PJ (designers, redatores, social media)</p>
+                    <h4>Como a Factorial ajuda:</h4>
+                    <ul>
+                        <li>Cadastro de todos os freelancers com contratos digitais</li>
+                        <li>Controle de horas por projeto de cliente</li>
+                        <li>Relatórios de custo real vs. orçado por campanha</li>
+                        <li>Portal para freelancers acessarem briefs e materiais</li>
+                        <li>Pagamentos organizados por projeto</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3>Caso 2: Startup de Tecnologia</h3>
+                    <p><strong>Situação:</strong> Startup com equipe enxuta de CLT e 10 desenvolvedores PJ remotos</p>
+                    <h4>Como a Factorial ajuda:</h4>
+                    <ul>
+                        <li>Onboarding digital de novos PJs</li>
+                        <li>Controle de sprints e entregas</li>
+                        <li>Integração via API com Jira/GitHub</li>
+                        <li>Gestão de pagamentos mensais com notas fiscais</li>
+                        <li>Comunicação integrada para toda equipe</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h3>Caso 3: Empresa de Consultoria</h3>
+                    <p><strong>Situação:</strong> Consultoria com 30 consultores PJ alocados em diferentes clientes</p>
+                    <h4>Como a Factorial ajuda:</h4>
+                    <ul>
+                        <li>Alocação clara de consultores por cliente/projeto</li>
+                        <li>Controle de horas para faturamento</li>
+                        <li>Centro de custo por cliente</li>
+                        <li>Relatórios gerenciais de produtividade</li>
+                        <li>Armazenamento de documentação específica por projeto</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="boas-praticas">
+                <h2>7. BOAS PRÁTICAS NA GESTÃO DE PJ</h2>
+
+                <div class="success-box">
+                    <h3>✅ Contratos bem elaborados</h3>
+                    <ul>
+                        <li>Escopo de serviços claramente definido</li>
+                        <li>Prazo de vigência e renovação</li>
+                        <li>Valores e forma de pagamento</li>
+                        <li>Cláusulas de confidencialidade e propriedade intelectual</li>
+                        <li>Responsabilidades fiscais e tributárias</li>
+                        <li>Condições de rescisão</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚖️ Cuidados jurídicos - Evitando pejotização</h3>
+                    <p><strong>ATENÇÃO:</strong> Pejotização é a prática ilegal de contratar como PJ quando deveria ser CLT!</p>
+                    
+                    <h4 style="color: #f56565; margin-top: 15px;">Sinais de risco (evite):</h4>
+                    <ul>
+                        <li>❌ Subordinação direta (ordens constantes)</li>
+                        <li>❌ Horário fixo obrigatório</li>
+                        <li>❌ Exclusividade de serviços</li>
+                        <li>❌ Mesmas atividades de um CLT</li>
+                        <li>❌ Controle rígido de tarefas diárias</li>
+                    </ul>
+
+                    <h4 style="color: #48bb78; margin-top: 15px;">O que é permitido:</h4>
+                    <ul>
+                        <li>✅ Prestação de serviços específicos</li>
+                        <li>✅ Autonomia na execução</li>
+                        <li>✅ Pagamento por projeto/entrega</li>
+                        <li>✅ Possibilidade de atender outros clientes</li>
+                        <li>✅ Sem vínculo de subordinação</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3>📝 Documentação essencial</h3>
+                    <p>Manter sempre organizados:</p>
+                    <ul>
+                        <li>Contrato de prestação de serviço assinado</li>
+                        <li>Cartão CNPJ atualizado</li>
+                        <li>Certificado MEI ou Contrato Social</li>
+                        <li>Comprovante de endereço da empresa</li>
+                        <li>Dados bancários (para pagamento)</li>
+                        <li>Notas fiscais de todos os serviços</li>
+                        <li>Comprovantes de pagamento</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>🎯 Onboarding de PJ</h3>
+                    <p>Passo a passo para integrar um novo prestador:</p>
+                    <ol>
+                        <li>Coleta de documentação (CNPJ, contrato social, dados bancários)</li>
+                        <li>Elaboração e assinatura do contrato</li>
+                        <li>Cadastro no sistema Factorial</li>
+                        <li>Criação de acesso ao portal</li>
+                        <li>Apresentação da equipe e processos</li>
+                        <li>Definição de canais de comunicação</li>
+                        <li>Alinhamento de expectativas e entregas</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="implementacao">
+                <h2>8. PASSO A PASSO: IMPLEMENTANDO GESTÃO DE PJ NA FACTORIAL</h2>
+
+                <div class="step">
+                    <h3><span class="step-number">1</span>Configuração inicial</h3>
+                    <ol>
+                        <li><strong>Crie campos personalizados para PJ (se necessário):</strong>
+                            <ul>
+                                <li>CNPJ</li>
+                                <li>Tipo de empresa (MEI, ME, LTDA)</li>
+                                <li>Inscrição Municipal</li>
+                            </ul>
+                        </li>
+                        <li><strong>Configure templates de contratos:</strong>
+                            <ul>
+                                <li>Modelo padrão de contrato de prestação</li>
+                                <li>Cláusulas específicas por tipo de serviço</li>
+                            </ul>
+                        </li>
+                        <li><strong>Defina centros de custo:</strong>
+                            <ul>
+                                <li>Por projeto</li>
+                                <li>Por departamento</li>
+                                <li>Por cliente final</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">2</span>Cadastro do prestador</h3>
+                    <ol>
+                        <li>Acesse: <span class="highlight">Pessoas > Adicionar Pessoa</span></li>
+                        <li>Preencha dados básicos:
+                            <ul>
+                                <li>Nome completo</li>
+                                <li>Email profissional</li>
+                                <li>Telefone</li>
+                            </ul>
+                        </li>
+                        <li>Marque como "Prestador de Serviço" ou categoria equivalente</li>
+                        <li>Adicione informações da empresa PJ</li>
+                        <li>Configure permissões de acesso ao portal</li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">3</span>Upload de documentos</h3>
+                    <ol>
+                        <li>Crie pasta específica para o prestador</li>
+                        <li>Faça upload de:
+                            <ul>
+                                <li>Contrato assinado</li>
+                                <li>CNPJ</li>
+                                <li>Contrato social ou certificado MEI</li>
+                                <li>Comprovantes de endereço</li>
+                            </ul>
+                        </li>
+                        <li>Configure assinatura digital (se disponível)</li>
+                        <li>Defina permissões de visualização</li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">4</span>Alocação em times e projetos</h3>
+                    <ol>
+                        <li>Adicione o prestador aos times relevantes</li>
+                        <li>Vincule a centros de custo/projetos</li>
+                        <li>Configure hierarquia (quem é o gestor responsável)</li>
+                        <li>Defina visibilidade no organograma</li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">5</span>Controle financeiro</h3>
+                    <ol>
+                        <li>Cadastre dados bancários do prestador</li>
+                        <li>Configure lembretes de pagamento</li>
+                        <li>Crie processo de upload de notas fiscais</li>
+                        <li>Defina aprovadores de pagamento</li>
+                        <li>Configure relatórios de despesas</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="beneficios">
+                <h2>9. BENEFÍCIOS DA GESTÃO ORGANIZADA DE PJ</h2>
+
+                <div class="grid">
+                    <div class="success-box">
+                        <h3>Para a Empresa:</h3>
+                        <ul>
+                            <li>✅ Redução de custos operacionais (sem encargos trabalhistas)</li>
+                            <li>✅ Flexibilidade para escalar equipe rapidamente</li>
+                            <li>✅ Acesso a especialistas para projetos específicos</li>
+                            <li>✅ Menor burocracia comparado a contratação CLT</li>
+                            <li>✅ Compliance legal quando bem estruturado</li>
+                            <li>✅ Controle financeiro mais preciso</li>
+                            <li>✅ Economia de até 40% em custos totais vs CLT</li>
+                            <li>✅ Agilidade em contratação e desligamento</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h3>Para o Prestador PJ:</h3>
+                        <ul>
+                            <li>✅ Maior remuneração líquida</li>
+                            <li>✅ Flexibilidade de horários</li>
+                            <li>✅ Autonomia profissional</li>
+                            <li>✅ Possibilidade de múltiplos clientes</li>
+                            <li>✅ Benefícios fiscais (dependendo do regime)</li>
+                            <li>✅ Controle sobre própria carreira</li>
+                            <li>✅ Trabalho remoto facilitado</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h3>Para a Gestão com Factorial:</h3>
+                        <ul>
+                            <li>✅ Centralização de informações</li>
+                            <li>✅ Automação de processos</li>
+                            <li>✅ Redução de 70% no tempo administrativo</li>
+                            <li>✅ Rastreabilidade total de documentos</li>
+                            <li>✅ Relatórios gerenciais em tempo real</li>
+                            <li>✅ Segurança e compliance LGPD</li>
+                            <li>✅ Acesso mobile para gestores e prestadores</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="comparativo">
+                <h2>10. COMPARATIVO: COM E SEM SISTEMA</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sem Sistema (Planilhas/Email)</th>
+                            <th>Com Factorial</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Documentos dispersos em emails</td>
+                            <td>✅ Todo centralizado em um lugar</td>
+                        </tr>
+                        <tr>
+                            <td>Risco de perder contratos/NFs</td>
+                            <td>✅ Armazenamento seguro e organizado</td>
+                        </tr>
+                        <tr>
+                            <td>Controle manual de horas</td>
+                            <td>✅ Registro automático e relatórios</td>
+                        </tr>
+                        <tr>
+                            <td>Planilhas desatualizadas</td>
+                            <td>✅ Dados em tempo real</td>
+                        </tr>
+                        <tr>
+                            <td>Comunicação fragmentada</td>
+                            <td>✅ Portal integrado</td>
+                        </tr>
+                        <tr>
+                            <td>Dificuldade em escalar</td>
+                            <td>✅ Fácil adição de novos PJs</td>
+                        </tr>
+                        <tr>
+                            <td>Sem rastreabilidade</td>
+                            <td>✅ Histórico completo de alterações</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="checklist">
+                <h2>11. CHECKLIST: ESTÁ PRONTO PARA GERENCIAR PJ?</h2>
+                <p>Use este checklist para avaliar sua gestão de PJ:</p>
+
+                <div class="highlight-box">
+                    <h3>Documentação e Legal</h3>
+                    <ul class="checklist">
+                        <li>Contratos bem elaborados e claros</li>
+                        <li>Templates padronizados</li>
+                        <li>Sistema de assinatura digital</li>
+                        <li>Armazenamento seguro de documentos</li>
+                        <li>Processo definido para renovações</li>
+                        <li>Compliance com LGPD</li>
+                        <li>Validação jurídica dos contratos</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3>Processos Operacionais</h3>
+                    <ul class="checklist">
+                        <li>Onboarding estruturado</li>
+                        <li>Sistema de controle de horas/entregas</li>
+                        <li>Processo de aprovação de pagamentos</li>
+                        <li>Gestão de notas fiscais</li>
+                        <li>Comunicação interna definida</li>
+                        <li>Métricas de acompanhamento</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h3>Tecnologia</h3>
+                    <ul class="checklist">
+                        <li>Sistema centralizado (como Factorial)</li>
+                        <li>Portal de acesso para prestadores</li>
+                        <li>Integrações com outros sistemas</li>
+                        <li>Relatórios automatizados</li>
+                        <li>Backup de dados</li>
+                        <li>Acesso mobile</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="conclusao">
+                <h2>12. CONCLUSÃO</h2>
+                <div class="highlight-box">
+                    <p>A gestão de prestadores de serviço PJ é uma realidade crescente no mercado brasileiro. Empresas que adotam essa modalidade de contratação precisam de processos bem estruturados para garantir:</p>
+                    <ul>
+                        <li>✨ Compliance legal (evitando riscos de pejotização)</li>
+                        <li>✨ Eficiência operacional</li>
+                        <li>✨ Controle financeiro</li>
+                        <li>✨ Boa experiência para os prestadores</li>
+                        <li>✨ Integração com a equipe CLT</li>
+                    </ul>
+                </div>
+
+                <div class="total-section">
+                    <h3 style="color: white;">A Factorial oferece uma solução completa:</h3>
+                    <ul>
+                        <li>✨ Economia de tempo (redução de 70% em tarefas administrativas)</li>
+                        <li>✨ Redução de custos operacionais</li>
+                        <li>✨ Segurança jurídica e compliance</li>
+                        <li>✨ Visibilidade total do negócio</li>
+                        <li>✨ Escalabilidade facilitada</li>
+                        <li>✨ Melhor experiência para todos os envolvidos</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="proximos-passos">
+                <h2>13. PRÓXIMOS PASSOS</h2>
+                <div class="info-box">
+                    <p>Para implementar uma gestão eficiente de PJ na sua empresa:</p>
+                    <ol>
+                        <li>Mapeie todos os prestadores PJ atuais</li>
+                        <li>Revise contratos existentes com apoio jurídico</li>
+                        <li>Defina processos claros de gestão</li>
+                        <li>Escolha uma plataforma de gestão (recomendamos Factorial)</li>
+                        <li>Configure o sistema com suas necessidades</li>
+                        <li>Treine a equipe de RH/DP</li>
+                        <li>Comunique mudanças aos prestadores</li>
+                        <li>Implemente gradualmente</li>
+                        <li>Monitore resultados e ajuste</li>
+                    </ol>
+                </div>
+
+                <div class="total-section">
+                    <h3 style="color: white;">📞 Entre em Contato</h3>
+                    <p>Quer saber mais sobre como a Factorial pode ajudar sua empresa na gestão de PJ?</p>
+                    <a href="https://www.factorialhr.com.br" class="btn" target="_blank" style="background: white; color: #27ae60;">🌐 www.factorialhr.com.br</a>
+                    <a href="mailto:contato@factorialhr.com.br" class="btn" style="background: white; color: #27ae60;">📧 contato@factorialhr.com.br</a>
+                    <p style="margin-top: 20px;"><strong>Solicite uma demonstração gratuita e descubra como transformar sua gestão de pessoas!</strong></p>
+                </div>
+            </section>
+
+            <section id="faq">
+                <h2>14. PERGUNTAS FREQUENTES (FAQ)</h2>
+
+                <div class="highlight-box">
+                    <h3>1. Posso usar a Factorial para gerenciar apenas PJ, sem CLT?</h3>
+                    <p>Sim! A Factorial pode ser utilizada exclusivamente para gestão de prestadores PJ ou de forma híbrida (CLT + PJ). O sistema é flexível para atender diferentes modelos de negócio.</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>2. A Factorial tem integração com sistemas de pagamento?</h3>
+                    <p>Sim! A Factorial possui API robusta que permite integração com ERPs, sistemas financeiros e ferramentas de pagamento, automatizando o fluxo completo.</p>
+                </div>
+
+                <div class="warning-box">
+                    <h3>3. Como evitar a pejotização usando a Factorial?</h3>
+                    <p>A Factorial ajuda através de contratos claros, campos customizados para diferenciar CLT de PJ, e relatórios que mostram a natureza da relação. Porém, a responsabilidade legal continua sendo da empresa em estruturar a relação corretamente.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>4. Prestadores PJ têm acesso ao portal da Factorial?</h3>
+                    <p>Sim! Cada prestador pode ter login individual com permissões específicas. Podem acessar seus documentos, registrar horas (se aplicável), visualizar comunicados e fazer upload de notas fiscais.</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>5. Quanto custa para gerenciar PJ na Factorial?</h3>
+                    <p>A Factorial possui planos flexíveis por usuário/mês. O custo varia conforme funcionalidades necessárias. Entre em contato para um orçamento personalizado baseado no número de prestadores.</p>
+                </div>
+
+                <div class="success-box">
+                    <h3>6. É possível controlar horas de PJ que trabalham por projeto?</h3>
+                    <p>Sim! O módulo de Time Tracking permite registro de horas por projeto, facilitando o controle de custos e faturamento. Ideal para consultorias e agências que cobram por hora.</p>
+                </div>
+
+                <div class="success-box">
+                    <h3>7. A Factorial está em conformidade com a LGPD?</h3>
+                    <p>Sim! A Factorial possui certificação ISO 27001 e está totalmente em conformidade com LGPD. Os dados são armazenados com criptografia e a empresa tem controles rigorosos de segurança.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>8. Posso criar relatórios personalizados?</h3>
+                    <p>Sim! A Factorial oferece dashboards customizáveis e a API permite extrair dados para criar relatórios específicos da sua necessidade em ferramentas de BI.</p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <h3>📚 Material desenvolvido para a Escola de Produto</h3>
+            <p>Factorial RH - Plataforma completa de gestão de pessoas</p>
+            <div class="footer-links">
+                <a href="https://www.factorialhr.com.br" target="_blank">Site Oficial</a>
+                <a href="mailto:contato@factorialhr.com.br">Contato</a>
+            </div>
+            <p style="margin-top: 20px; opacity: 0.8;">© 2024 Factorial HR - Todos os direitos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll para navegação
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Highlight da seção ativa no scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.style.background = '';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.background = 'rgba(255,255,255,0.1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

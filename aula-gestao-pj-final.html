@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Aula: Gestão de Prestadores de Serviço (PJ) | Escola de Produto</title>
+    
+    <!-- Enhanced CSS Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    
+    <!-- Factorial Font: Fira Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand-radical: #FF355E;
+            --brand-viridian: #07A2AD;
+            --brand-sunbeam: #FFB940;
+            --brand-tangerine: #FF9153;
+            --brand-midnight: #25253D;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+        }
+        
+        body {
+            font-family: 'Fira Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--brand-radical) 0%, var(--brand-tangerine) 50%, var(--brand-sunbeam) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .radical-red-box-title {
+            background: #FF355E !important;
+            border: none !important;
+            border-radius: 20px !important;
+            padding: 25px 35px !important;
+            margin: 15px 0 !important;
+            box-shadow: 0 0 25px rgba(255, 53, 94, 0.4), 0 0 50px rgba(255, 53, 94, 0.15) !important;
+        }
+        
+        .lesson-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .lesson-number {
+            background: linear-gradient(135deg, var(--brand-radical), var(--brand-tangerine));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .holographic-card {
+            background: var(--bg-secondary);
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .holographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-table {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--brand-radical), var(--brand-tangerine));
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .cyber-text {
+            color: var(--brand-radical);
+            font-weight: 800;
+        }
+        
+        .neon-text {
+            color: var(--brand-radical);
+            font-weight: 700;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--brand-sunbeam), var(--brand-tangerine));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden" id="intro">
+        <div class="text-center text-white z-10 px-6">
+            <div class="radical-red-box-title">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    <span>📚 Aula Completa:</span>
+                    <br>
+                    <span>Gestão de Prestadores</span>
+                    <br>
+                    <span>de Serviço (PJ)</span>
+                </h1>
+            </div>
+            <div class="radical-red-box-title">
+                <p class="text-xl md:text-2xl mb-8 max-w-4xl mx-auto text-white leading-relaxed">
+                    Aprenda tudo sobre como gerenciar prestadores PJ de forma eficiente, legal e profissional. Da teoria à prática, com a Factorial como sua aliada.
+                </p>
+            </div>
+            <div class="mb-8">
+                <div class="inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full font-bold text-lg">
+                    🎓 Escola de Produto - Conteúdo Educativo Completo
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+            <div class="absolute floating" style="top:8%; left:12%; animation-delay:0s;">
+                <div class="w-24 h-24 bg-gradient-to-br from-blue-400/20 to-purple-500/20 backdrop-blur-sm rounded-3xl transform rotate-12 border border-white/20"></div>
+            </div>
+            <div class="absolute floating" style="top:18%; left:75%; animation-delay:1.2s;">
+                <div class="w-20 h-20 bg-gradient-to-br from-pink-400/15 to-red-500/15 backdrop-blur-sm rounded-full border border-white/15"></div>
+            </div>
+            <div class="absolute floating" style="top:42%; left:18%; animation-delay:2.4s;">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-400/20 to-blue-500/20 backdrop-blur-sm transform rotate-45 border border-white/20"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: O que é PJ? -->
+    <section id="o-que-e-pj" class="py-20 relative z-10" style="background: var(--bg-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">🏢 O QUE É PJ?</span>
+                    <br>
+                    <span class="neon-text">Pessoa Jurídica</span>
+                    <br>
+                    <span class="gradient-text">Conceitos Fundamentais</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    Entenda os conceitos básicos e características principais da contratação de prestadores de serviço PJ.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">Definição de PJ</h3>
+                        <p class="text-lg mb-6" style="color: var(--text-secondary);">
+                            PJ é a sigla para <strong>Pessoa Jurídica</strong>, uma forma de contratação onde profissionais prestam serviços à empresa através de seu próprio CNPJ (Cadastro Nacional da Pessoa Jurídica).
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="holographic-card">
+                                <h4 class="text-xl font-bold mb-4 text-blue-600">📋 Principais Características</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center">
+                                        <span class="text-2xl mr-3">🏢</span>
+                                        <span>Profissional possui CNPJ próprio (MEI, ME, LTDA, etc.)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="text-2xl mr-3">🤝</span>
+                                        <span>Relação comercial entre empresas (B2B)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="text-2xl mr-3">📄</span>
+                                        <span>Emissão de Nota Fiscal de Serviço</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="text-2xl mr-3">❌</span>
+                                        <span>Não tem vínculo empregatício (CLT)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="text-2xl mr-3">🎯</span>
+                                        <span>Maior autonomia e flexibilidade</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="text-2xl mr-3">💼</span>
+                                        <span>Responsável pelos próprios impostos e contribuições</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="holographic-card">
+                                <h4 class="text-xl font-bold mb-4 text-green-600">💡 Por que usar PJ?</h4>
+                                <div class="space-y-4">
+                                    <div class="bg-green-50 p-4 rounded-lg">
+                                        <h5 class="font-bold text-green-800 mb-2">Para a Empresa:</h5>
+                                        <ul class="text-sm text-green-700 space-y-1">
+                                            <li>• Redução de custos operacionais</li>
+                                            <li>• Flexibilidade para escalar equipe</li>
+                                            <li>• Acesso a especialistas</li>
+                                            <li>• Menor burocracia</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-blue-50 p-4 rounded-lg">
+                                        <h5 class="font-bold text-blue-800 mb-2">Para o Prestador:</h5>
+                                        <ul class="text-sm text-blue-700 space-y-1">
+                                            <li>• Maior remuneração líquida</li>
+                                            <li>• Flexibilidade de horários</li>
+                                            <li>• Autonomia profissional</li>
+                                            <li>• Múltiplos clientes</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: CLT vs PJ -->
+    <section id="clt-vs-pj" class="py-20 relative z-10" style="background: var(--bg-primary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">⚖️ CLT vs PJ</span>
+                    <br>
+                    <span class="neon-text">Comparação Detalhada</span>
+                    <br>
+                    <span class="gradient-text">Entenda as Diferenças</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    Conheça as principais diferenças entre contratação CLT e prestação de serviços PJ.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Tabela Comparativa</h3>
+                        
+                        <div class="comparison-table">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Aspecto</th>
+                                        <th class="text-center">CLT (Empregado)</th>
+                                        <th class="text-center">PJ (Prestador de Serviço)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-semibold">Tipo de Vínculo</td>
+                                        <td class="text-center">Vínculo empregatício</td>
+                                        <td class="text-center">Relação comercial</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Remuneração</td>
+                                        <td class="text-center">Salário fixo + benefícios</td>
+                                        <td class="text-center">Valor por serviço/projeto</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Benefícios</td>
+                                        <td class="text-center">13º salário, férias, FGTS</td>
+                                        <td class="text-center">Sem benefícios trabalhistas</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Encargos</td>
+                                        <td class="text-center">Empresa paga (INSS, FGTS)</td>
+                                        <td class="text-center">PJ paga próprios impostos</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Horário</td>
+                                        <td class="text-center">Horário fixo e controle de ponto</td>
+                                        <td class="text-center">Flexibilidade de horário</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Subordinação</td>
+                                        <td class="text-center">Subordinação ao empregador</td>
+                                        <td class="text-center">Autonomia na execução</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Estabilidade</td>
+                                        <td class="text-center">Estabilidade maior</td>
+                                        <td class="text-center">Pode ter múltiplos clientes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="mt-8 bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                            <h4 class="text-lg font-bold text-yellow-800 mb-3">⚠️ Atenção: Pejotização</h4>
+                            <p class="text-yellow-700 mb-4">
+                                <strong>Pejotização</strong> é a prática ilegal de contratar como PJ quando deveria ser CLT! 
+                                É importante estruturar a relação corretamente para evitar problemas legais.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <h5 class="font-bold text-red-800 mb-2">❌ Sinais de Risco (evite):</h5>
+                                    <ul class="text-sm text-red-700 space-y-1">
+                                        <li>• Subordinação direta (ordens constantes)</li>
+                                        <li>• Horário fixo obrigatório</li>
+                                        <li>• Exclusividade de serviços</li>
+                                        <li>• Mesmas atividades de um CLT</li>
+                                        <li>• Controle rígido de tarefas diárias</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <h5 class="font-bold text-green-800 mb-2">✅ O que é Permitido:</h5>
+                                    <ul class="text-sm text-green-700 space-y-1">
+                                        <li>• Prestação de serviços específicos</li>
+                                        <li>• Autonomia na execução</li>
+                                        <li>• Pagamento por projeto/entrega</li>
+                                        <li>• Possibilidade de atender outros clientes</li>
+                                        <li>• Sem vínculo de subordinação</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Desafios na Gestão de PJ -->
+    <section id="desafios" class="py-20 relative z-10" style="background: var(--bg-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">🚧 DESAFIOS</span>
+                    <br>
+                    <span class="neon-text">Na Gestão de PJ</span>
+                    <br>
+                    <span class="gradient-text">Problemas Comuns</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    Empresas enfrentam diversos desafios ao gerenciar prestadores de serviço PJ. Conheça os principais e como superá-los.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Principais Desafios</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">🗂️</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Documentação e Contratos</h4>
+                                    </div>
+                                    <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                        <li>• Contratos de prestação de serviço precisam ser claros e completos</li>
+                                        <li>• Armazenamento seguro de documentos (CNPJs, contratos, notas fiscais)</li>
+                                        <li>• Renovações e alterações contratuais</li>
+                                        <li>• Gestão de assinaturas digitais</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">⏰</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Controle de Horas e Entregas</h4>
+                                    </div>
+                                    <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                        <li>• Registro de horas trabalhadas (quando aplicável)</li>
+                                        <li>• Acompanhamento de entregas e projetos</li>
+                                        <li>• Controle de prazos e deadlines</li>
+                                        <li>• Relatórios de produtividade</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">💰</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Pagamentos e Fiscal</h4>
+                                    </div>
+                                    <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                        <li>• Controle de notas fiscais recebidas</li>
+                                        <li>• Gestão de pagamentos e prazos</li>
+                                        <li>• Conferência de valores e retenções fiscais</li>
+                                        <li>• Organização de despesas por projeto/centro de custo</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">👥</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Comunicação e Integração</h4>
+                                    </div>
+                                    <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                        <li>• Onboarding de novos prestadores</li>
+                                        <li>• Comunicação interna com a equipe</li>
+                                        <li>• Acesso a sistemas e ferramentas</li>
+                                        <li>• Alinhamento de expectativas e processos</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Como a Factorial Ajuda -->
+    <section id="como-factorial-ajuda" class="py-20 relative z-10" style="background: var(--bg-primary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">🚀 COMO A FACTORIAL</span>
+                    <br>
+                    <span class="neon-text">Ajuda na Gestão de PJ</span>
+                    <br>
+                    <span class="gradient-text">Solução Completa</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    A Factorial oferece uma plataforma completa de gestão de pessoas que também pode ser utilizada para gerenciar prestadores de serviço PJ de forma eficiente e profissional.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Principais Funcionalidades</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">📋</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Gestão de Contratos e Documentos</h4>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <p class="text-sm font-semibold text-blue-600">Como funciona:</p>
+                                        <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                            <li>• Cadastro completo do prestador PJ com todos os dados</li>
+                                            <li>• Upload e armazenamento seguro de contratos</li>
+                                            <li>• Assinatura digital de documentos integrada</li>
+                                            <li>• Templates personalizados de contratos</li>
+                                            <li>• Histórico completo de versões contratuais</li>
+                                            <li>• Pasta digital individual para cada prestador</li>
+                                            <li>• Notificações de vencimento de contratos</li>
+                                        </ul>
+                                        <div class="bg-green-50 p-3 rounded-lg mt-3">
+                                            <p class="text-sm text-green-700">
+                                                <strong>💡 Benefício:</strong> Toda documentação organizada em um só lugar, acessível 24/7, com segurança e conformidade LGPD.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">⏱️</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Controle de Horas e Projetos</h4>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <p class="text-sm font-semibold text-blue-600">Como funciona:</p>
+                                        <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                            <li>• Sistema de registro de ponto e horas trabalhadas</li>
+                                            <li>• Alocação de prestadores em projetos e centros de custo</li>
+                                            <li>• Relatórios de horas por projeto/cliente</li>
+                                            <li>• Controle de banco de horas (quando aplicável)</li>
+                                            <li>• Dashboard visual com produtividade e entregas</li>
+                                            <li>• Integração com ferramentas de gestão de projetos via API</li>
+                                        </ul>
+                                        <div class="bg-green-50 p-3 rounded-lg mt-3">
+                                            <p class="text-sm text-green-700">
+                                                <strong>💡 Benefício:</strong> Visibilidade total sobre a alocação de recursos e custos por projeto, facilitando a gestão financeira.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">💰</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Gestão Financeira e Pagamentos</h4>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <p class="text-sm font-semibold text-blue-600">Como funciona:</p>
+                                        <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                            <li>• Cadastro de informações bancárias do prestador</li>
+                                            <li>• Upload e armazenamento de notas fiscais</li>
+                                            <li>• Controle de pagamentos e datas de vencimento</li>
+                                            <li>• Gestão de despesas por projeto</li>
+                                            <li>• Relatórios financeiros consolidados</li>
+                                            <li>• Exportação de dados para sistemas contábeis</li>
+                                            <li>• Integração via API com ERPs e sistemas financeiros</li>
+                                        </ul>
+                                        <div class="bg-green-50 p-3 rounded-lg mt-3">
+                                            <p class="text-sm text-green-700">
+                                                <strong>💡 Benefício:</strong> Organização financeira impecável, reduzindo erros e atrasos em pagamentos.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">📊</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Organograma e Times</h4>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <p class="text-sm font-semibold text-blue-600">Como funciona:</p>
+                                        <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                            <li>• Inclusão de prestadores PJ no organograma da empresa</li>
+                                            <li>• Criação de times mistos (CLT + PJ)</li>
+                                            <li>• Definição de gestores e responsáveis</li>
+                                            <li>• Visão clara de quem está alocado em cada projeto</li>
+                                            <li>• Diretório de pessoas com informações de contato</li>
+                                        </ul>
+                                        <div class="bg-green-50 p-3 rounded-lg mt-3">
+                                            <p class="text-sm text-green-700">
+                                                <strong>💡 Benefício:</strong> Clareza organizacional, facilitando comunicação e colaboração entre equipes.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Módulos da Factorial -->
+                        <div class="mt-12">
+                            <h4 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">📚 Módulos da Factorial para Gestão de PJ</h4>
+                            <div class="comparison-table">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">Módulo</th>
+                                            <th class="text-center">Funcionalidade</th>
+                                            <th class="text-center">Uso com PJ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-semibold">Documentos</td>
+                                            <td class="text-center">Gestão de arquivos</td>
+                                            <td class="text-center">Contratos, NF, CNPJ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Contratos</td>
+                                            <td class="text-center">Versões contratuais</td>
+                                            <td class="text-center">Contratos de prestação</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Time Tracking</td>
+                                            <td class="text-center">Controle de horas</td>
+                                            <td class="text-center">Horas trabalhadas/projeto</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Centros de Custo</td>
+                                            <td class="text-center">Alocação financeira</td>
+                                            <td class="text-center">Custeio por projeto</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Times</td>
+                                            <td class="text-center">Organograma</td>
+                                            <td class="text-center">Estrutura organizacional</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Portal do Colaborador</td>
+                                            <td class="text-center">Acesso individual</td>
+                                            <td class="text-center">Portal para PJ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Relatórios</td>
+                                            <td class="text-center">Dashboards</td>
+                                            <td class="text-center">Métricas de produtividade</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">API</td>
+                                            <td class="text-center">Integrações</td>
+                                            <td class="text-center">Conexão com ERPs</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Casos Práticos -->
+    <section id="casos-praticos" class="py-20 relative z-10" style="background: var(--bg-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">💼 CASOS PRÁTICOS</span>
+                    <br>
+                    <span class="neon-text">de Uso Real</span>
+                    <br>
+                    <span class="gradient-text">Exemplos Práticos</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    Veja como diferentes tipos de empresas utilizam a Factorial para gerenciar prestadores PJ de forma eficiente.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">5</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Exemplos Reais de Implementação</h3>
+                        
+                        <div class="space-y-8">
+                            <!-- Caso 1 -->
+                            <div class="holographic-card p-8 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-blue-100 p-4 rounded-full">
+                                        <span class="text-3xl">🎨</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-2xl font-bold mb-4 text-blue-600">Caso 1: Agência de Marketing Digital</h4>
+                                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                                            <p class="font-semibold text-blue-800">Situação:</p>
+                                            <p class="text-blue-700">Agência com 15 CLTs e 25 freelancers PJ (designers, redatores, social media)</p>
+                                        </div>
+                                        
+                                        <div class="bg-green-50 p-4 rounded-lg">
+                                            <p class="font-semibold text-green-800 mb-3">Como a Factorial ajuda:</p>
+                                            <ul class="space-y-2 text-green-700">
+                                                <li>• Cadastro de todos os freelancers com contratos digitais</li>
+                                                <li>• Controle de horas por projeto de cliente</li>
+                                                <li>• Relatórios de custo real vs. orçado por campanha</li>
+                                                <li>• Portal para freelancers acessarem briefs e materiais</li>
+                                                <li>• Pagamentos organizados por projeto</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Caso 2 -->
+                            <div class="holographic-card p-8 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-purple-100 p-4 rounded-full">
+                                        <span class="text-3xl">💻</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-2xl font-bold mb-4 text-purple-600">Caso 2: Startup de Tecnologia</h4>
+                                        <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                                            <p class="font-semibold text-purple-800">Situação:</p>
+                                            <p class="text-purple-700">Startup com equipe enxuta de CLT e 10 desenvolvedores PJ remotos</p>
+                                        </div>
+                                        
+                                        <div class="bg-green-50 p-4 rounded-lg">
+                                            <p class="font-semibold text-green-800 mb-3">Como a Factorial ajuda:</p>
+                                            <ul class="space-y-2 text-green-700">
+                                                <li>• Onboarding digital de novos PJs</li>
+                                                <li>• Controle de sprints e entregas</li>
+                                                <li>• Integração via API com Jira/GitHub</li>
+                                                <li>• Gestão de pagamentos mensais com notas fiscais</li>
+                                                <li>• Comunicação integrada para toda equipe</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Caso 3 -->
+                            <div class="holographic-card p-8 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-green-100 p-4 rounded-full">
+                                        <span class="text-3xl">🏢</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-2xl font-bold mb-4 text-green-600">Caso 3: Empresa de Consultoria</h4>
+                                        <div class="bg-green-50 p-4 rounded-lg mb-4">
+                                            <p class="font-semibold text-green-800">Situação:</p>
+                                            <p class="text-green-700">Consultoria com 30 consultores PJ alocados em diferentes clientes</p>
+                                        </div>
+                                        
+                                        <div class="bg-blue-50 p-4 rounded-lg">
+                                            <p class="font-semibold text-blue-800 mb-3">Como a Factorial ajuda:</p>
+                                            <ul class="space-y-2 text-blue-700">
+                                                <li>• Alocação clara de consultores por cliente/projeto</li>
+                                                <li>• Controle de horas para faturamento</li>
+                                                <li>• Centro de custo por cliente</li>
+                                                <li>• Relatórios gerenciais de produtividade</li>
+                                                <li>• Armazenamento de documentação específica por projeto</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Boas Práticas -->
+    <section id="boas-praticas" class="py-20 relative z-10" style="background: var(--bg-primary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">✅ BOAS PRÁTICAS</span>
+                    <br>
+                    <span class="neon-text">Para Gestão de PJ</span>
+                    <br>
+                    <span class="gradient-text">Dicas Práticas</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    Aprenda as melhores práticas para gerenciar prestadores de serviço PJ de forma eficiente e profissional.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">6</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Checklist de Boas Práticas</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">📝</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Documentação</h4>
+                                    </div>
+                                    <ul class="space-y-3 text-sm" style="color: var(--text-secondary);">
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Contrato de prestação de serviço bem detalhado</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>CNPJ ativo e regular na Receita Federal</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Inscrição municipal (quando aplicável)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Certidões negativas de débitos</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Seguro de responsabilidade civil (quando necessário)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">💼</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Gestão Contratual</h4>
+                                    </div>
+                                    <ul class="space-y-3 text-sm" style="color: var(--text-secondary);">
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Definir claramente escopo e entregas</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Estabelecer prazos e marcos de entrega</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Definir valores e forma de pagamento</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Incluir cláusulas de confidencialidade</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Estabelecer critérios de qualidade</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">⏰</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Controle e Acompanhamento</h4>
+                                    </div>
+                                    <ul class="space-y-3 text-sm" style="color: var(--text-secondary);">
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Registrar horas trabalhadas (quando aplicável)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Acompanhar entregas e marcos</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Realizar reuniões de acompanhamento</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Documentar feedback e melhorias</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Manter comunicação clara e regular</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="holographic-card">
+                                    <div class="flex items-center mb-4">
+                                        <span class="text-3xl mr-4">💰</span>
+                                        <h4 class="text-xl font-bold" style="color: var(--text-primary);">Aspectos Financeiros</h4>
+                                    </div>
+                                    <ul class="space-y-3 text-sm" style="color: var(--text-secondary);">
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Receber notas fiscais em dia</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Verificar valores e cálculos</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Efetuar pagamentos nos prazos</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Organizar despesas por centro de custo</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-2">✓</span>
+                                            <span>Manter controle de orçamento</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Dicas Extras -->
+                        <div class="mt-12">
+                            <h4 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">💡 Dicas Extras para Sucesso</h4>
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="holographic-card p-6 text-center">
+                                    <div class="text-4xl mb-4">🤝</div>
+                                    <h5 class="font-bold mb-3" style="color: var(--text-primary);">Relacionamento</h5>
+                                    <p class="text-sm" style="color: var(--text-secondary);">Trate prestadores como parceiros, não apenas fornecedores</p>
+                                </div>
+                                <div class="holographic-card p-6 text-center">
+                                    <div class="text-4xl mb-4">📊</div>
+                                    <h5 class="font-bold mb-3" style="color: var(--text-primary);">Métricas</h5>
+                                    <p class="text-sm" style="color: var(--text-secondary);">Acompanhe produtividade e qualidade das entregas</p>
+                                </div>
+                                <div class="holographic-card p-6 text-center">
+                                    <div class="text-4xl mb-4">🔄</div>
+                                    <h5 class="font-bold mb-3" style="color: var(--text-primary);">Melhoria</h5>
+                                    <p class="text-sm" style="color: var(--text-secondary);">Revise processos regularmente e busque otimizações</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: FAQ -->
+    <section id="faq" class="py-20 relative z-10" style="background: var(--bg-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">❓ PERGUNTAS</span>
+                    <br>
+                    <span class="neon-text">Frequentes</span>
+                    <br>
+                    <span class="gradient-text">FAQ</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    Tire suas dúvidas sobre gestão de prestadores de serviço PJ e como a Factorial pode ajudar.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">7</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Dúvidas Comuns</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="holographic-card">
+                                <h4 class="text-lg font-bold mb-3" style="color: var(--text-primary);">🤔 Posso usar a Factorial para gerenciar prestadores PJ?</h4>
+                                <p class="text-sm" style="color: var(--text-secondary);">
+                                    <strong>Sim!</strong> A Factorial foi originalmente criada para gestão de funcionários CLT, mas suas funcionalidades se adaptam perfeitamente para gestão de prestadores PJ. Você pode cadastrar PJs, gerenciar contratos, controlar horas, organizar documentos e muito mais.
+                                </p>
+                            </div>
+                            
+                            <div class="holographic-card">
+                                <h4 class="text-lg font-bold mb-3" style="color: var(--text-primary);">💰 Como controlo os custos com prestadores PJ?</h4>
+                                <p class="text-sm" style="color: var(--text-secondary);">
+                                    <strong>Use os Centros de Custo!</strong> Crie centros de custo por projeto, cliente ou departamento. Aloque cada prestador PJ ao centro de custo correspondente e acompanhe os gastos através de relatórios detalhados. Isso facilita o controle orçamentário e a análise de rentabilidade.
+                                </p>
+                            </div>
+                            
+                            <div class="holographic-card">
+                                <h4 class="text-lg font-bold mb-3" style="color: var(--text-primary);">📋 Preciso de contratos diferentes para cada prestador?</h4>
+                                <p class="text-sm" style="color: var(--text-secondary);">
+                                    <strong>Recomendamos sim.</strong> Cada prestador deve ter um contrato específico com escopo, valores e prazos definidos. A Factorial permite criar templates de contratos e personalizar para cada prestador, facilitando a gestão e garantindo clareza nas relações contratuais.
+                                </p>
+                            </div>
+                            
+                            <div class="holographic-card">
+                                <h4 class="text-lg font-bold mb-3" style="color: var(--text-primary);">⏰ Como controlo as horas trabalhadas pelos prestadores?</h4>
+                                <p class="text-sm" style="color: var(--text-secondary);">
+                                    <strong>Use o Time Tracking!</strong> Os prestadores podem registrar suas horas através do portal do colaborador ou app mobile. Você pode configurar diferentes tipos de jornada, controlar horas por projeto e gerar relatórios detalhados de produtividade.
+                                </p>
+                            </div>
+                            
+                            <div class="holographic-card">
+                                <h4 class="text-lg font-bold mb-3" style="color: var(--text-primary);">🔒 Os dados dos prestadores ficam seguros na Factorial?</h4>
+                                <p class="text-sm" style="color: var(--text-secondary);">
+                                    <strong>Sim, totalmente seguro!</strong> A Factorial é certificada em LGPD, utiliza criptografia de ponta a ponta e está hospedada em servidores seguros. Todos os documentos e dados pessoais dos prestadores ficam protegidos e acessíveis apenas por pessoas autorizadas.
+                                </p>
+                            </div>
+                            
+                            <div class="holographic-card">
+                                <h4 class="text-lg font-bold mb-3" style="color: var(--text-primary);">📊 Posso integrar a Factorial com outros sistemas?</h4>
+                                <p class="text-sm" style="color: var(--text-secondary);">
+                                    <strong>Sim, via API!</strong> A Factorial oferece API REST completa para integração com ERPs, sistemas de gestão de projetos, ferramentas de comunicação e outros sistemas da sua empresa. Isso permite sincronizar dados e automatizar processos.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Conclusão -->
+    <section id="conclusao" class="py-20 relative z-10" style="background: var(--bg-primary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+                    <span class="cyber-text">🎯 CONCLUSÃO</span>
+                    <br>
+                    <span class="neon-text">Próximos Passos</span>
+                    <br>
+                    <span class="gradient-text">Vamos Começar?</span>
+                </h2>
+                <p class="text-xl max-w-4xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
+                    Agora você tem todas as informações necessárias para gerenciar prestadores de serviço PJ de forma eficiente e profissional.
+                </p>
+            </div>
+
+            <div class="lesson-card">
+                <div class="flex items-start space-x-6">
+                    <div class="lesson-number">8</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">Resumo do que Aprendemos</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-8 mb-12">
+                            <div class="space-y-4">
+                                <h4 class="text-xl font-bold" style="color: var(--text-primary);">📚 Conceitos Fundamentais</h4>
+                                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                    <li>• Diferenças entre CLT e PJ</li>
+                                    <li>• Vantagens e desvantagens de cada modalidade</li>
+                                    <li>• Principais desafios na gestão de PJ</li>
+                                    <li>• Aspectos legais e contratuais</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <h4 class="text-xl font-bold" style="color: var(--text-primary);">🛠️ Ferramentas e Práticas</h4>
+                                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                                    <li>• Como a Factorial pode ajudar</li>
+                                    <li>• Boas práticas de gestão</li>
+                                    <li>• Casos práticos de implementação</li>
+                                    <li>• Dicas para sucesso</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Call to Action -->
+                        <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl border-2 border-blue-200">
+                            <div class="text-center">
+                                <h4 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">🚀 Pronto para Começar?</h4>
+                                <p class="text-lg mb-6" style="color: var(--text-secondary);">
+                                    Agora é hora de colocar em prática tudo que você aprendeu!
+                                </p>
+                                
+                                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                                    <div class="text-center">
+                                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                                            <span class="text-2xl">1️⃣</span>
+                                        </div>
+                                        <h5 class="font-bold mb-2" style="color: var(--text-primary);">Avalie sua Situação</h5>
+                                        <p class="text-sm" style="color: var(--text-secondary);">Identifique quantos prestadores PJ você tem e quais são os principais desafios</p>
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                                            <span class="text-2xl">2️⃣</span>
+                                        </div>
+                                        <h5 class="font-bold mb-2" style="color: var(--text-primary);">Teste a Factorial</h5>
+                                        <p class="text-sm" style="color: var(--text-secondary);">Solicite uma demonstração gratuita e veja como a plataforma pode ajudar</p>
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                                            <span class="text-2xl">3️⃣</span>
+                                        </div>
+                                        <h5 class="font-bold mb-2" style="color: var(--text-primary);">Implemente</h5>
+                                        <p class="text-sm" style="color: var(--text-secondary);">Comece com um piloto e expanda gradualmente para todos os prestadores</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                    <a href="https://factorial.com.br" target="_blank" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+                                        🚀 Testar Factorial Grátis
+                                    </a>
+                                    <a href="#inicio" class="bg-gray-200 text-gray-800 px-8 py-4 rounded-lg font-bold hover:bg-gray-300 transition-all duration-300">
+                                        📚 Revisar Conteúdo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Enhanced GSAP Animations
+        gsap.from('.hero-gradient h1', {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            ease: 'power2.out'
+        });
+        
+        gsap.from('.hero-gradient p', {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            ease: 'power3.out',
+            delay: 0.3
+        });
+        
+        gsap.from('.lesson-card', {
+            scrollTrigger: {
+                trigger: '.lesson-card',
+                start: 'top 80%'
+            },
+            duration: 1.2,
+            y: 100,
+            opacity: 0,
+            ease: 'power3.out',
+            stagger: 0.2
+        });
+    </script>
+</body>
+</html>
