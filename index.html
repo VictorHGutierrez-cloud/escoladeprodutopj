@@ -164,9 +164,112 @@
         .radical-red-box-title {
             opacity: 1 !important;
         }
+        
+        /* Loading Animation Styles */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .animate-fade-in-delay {
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+        
+        .floating-unicorn {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatUnicorn 8s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes floatUnicorn {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(-3deg); }
+            75% { transform: translateY(-15px) rotate(2deg); }
+        }
+        
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        /* Dark Mode Styles */
+        .dark {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #e94560;
+            --text-secondary: #b8b8d1;
+        }
+        
+        .dark .holographic-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dark .lesson-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <span id="dark-mode-icon">🌙</span>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loading-animation" class="fixed inset-0 bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 flex items-center justify-center z-50">
+        <!-- Floating Unicorns -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="floating-unicorn" style="top: 10%; left: 10%; animation-delay: 0s;">🦄</div>
+            <div class="floating-unicorn" style="top: 20%; right: 15%; animation-delay: 1s;">🦄</div>
+            <div class="floating-unicorn" style="bottom: 30%; left: 20%; animation-delay: 2s;">🦄</div>
+            <div class="floating-unicorn" style="bottom: 15%; right: 10%; animation-delay: 1.5s;">🦄</div>
+            <div class="floating-unicorn" style="top: 50%; left: 5%; animation-delay: 0.5s;">🦄</div>
+            <div class="floating-unicorn" style="top: 60%; right: 5%; animation-delay: 2.5s;">🦄</div>
+        </div>
+        
+        <div class="text-center relative z-10">
+            <div class="mb-8">
+                <div class="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center animate-pulse shadow-2xl">
+                    <span class="text-5xl">🎓</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">
+                    Iniciando sua aula de PJ! :)
+                </h1>
+                <p class="text-2xl md:text-3xl text-pink-200 animate-fade-in-delay font-medium">
+                    Com Letícia e Guti
+                </p>
+            </div>
+            <div class="flex justify-center space-x-3">
+                <div class="w-4 h-4 bg-pink-400 rounded-full animate-bounce shadow-lg"></div>
+                <div class="w-4 h-4 bg-purple-400 rounded-full animate-bounce shadow-lg" style="animation-delay: 0.1s"></div>
+                <div class="w-4 h-4 bg-indigo-400 rounded-full animate-bounce shadow-lg" style="animation-delay: 0.2s"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden" id="intro">
         <div class="text-center text-white z-10 px-6">
@@ -1099,8 +1202,27 @@
 
     <!-- JavaScript -->
     <script>
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            const icon = document.getElementById('dark-mode-icon');
+            icon.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+        }
+
+        // Loading Animation Control
+        function hideLoadingAnimation() {
+            const loading = document.getElementById('loading-animation');
+            loading.style.opacity = '0';
+            loading.style.transition = 'opacity 0.5s ease-out';
+            setTimeout(() => {
+                loading.style.display = 'none';
+            }, 500);
+        }
+
         // Aguardar o carregamento completo da página
         window.addEventListener('DOMContentLoaded', function() {
+            // Hide loading animation after 3 seconds
+            setTimeout(hideLoadingAnimation, 3000);
             // Verificar se GSAP está carregado
             if (typeof gsap !== 'undefined') {
                 // Initialize GSAP
