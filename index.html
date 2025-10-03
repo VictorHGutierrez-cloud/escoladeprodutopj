@@ -262,10 +262,20 @@
                     Com Letícia e Guti
                 </p>
             </div>
-            <div class="flex justify-center space-x-3">
+            <div class="flex justify-center space-x-3 mb-8">
                 <div class="w-4 h-4 bg-pink-400 rounded-full animate-bounce shadow-lg"></div>
                 <div class="w-4 h-4 bg-purple-400 rounded-full animate-bounce shadow-lg" style="animation-delay: 0.1s"></div>
                 <div class="w-4 h-4 bg-indigo-400 rounded-full animate-bounce shadow-lg" style="animation-delay: 0.2s"></div>
+            </div>
+            
+            <!-- Botão para iniciar a aula -->
+            <div class="animate-fade-in-delay">
+                <button onclick="startLesson()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-pink-500/25">
+                    🚀 Começar Aula Agora
+                </button>
+                <p class="text-pink-200 text-sm mt-4 opacity-80">
+                    Clique no botão quando estiver pronto para começar
+                </p>
             </div>
         </div>
     </div>
@@ -1172,7 +1182,7 @@
                         <div class="holographic-card p-6">
                             <h4 class="text-xl font-bold mb-4" style="color: var(--text-primary);">📊 Use este conteúdo</h4>
                             <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
-                                <li>• Compartilhe com clientes que têm prestadores PJ</li>
+                                <li>• Compartilhe com seus colegas</li>
                                 <li>• Use nas consultorias e demos</li>
                                 <li>• Inclua em materiais de onboarding</li>
                                 <li>• Referencie em conversas comerciais</li>
@@ -1180,12 +1190,12 @@
                         </div>
                         
                         <div class="holographic-card p-6">
-                            <h4 class="text-xl font-bold mb-4" style="color: var(--text-primary);">💡 Evolua o material</h4>
+                            <h4 class="text-xl font-bold mb-4" style="color: var(--text-primary);">💡 Evolua o material! 🤩</h4>
                             <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
-                                <li>• Colete feedback dos usuários</li>
-                                <li>• Atualize com mudanças na legislação</li>
+                                <li>• Colete feedback dos clientes</li>
+                                <li>• Atualize o guia com mudanças na legislação</li>
                                 <li>• Adicione novos casos de uso</li>
-                                <li>• Crie versões para diferentes segmentos</li>
+                                <li>• Crie versões para diferentes segmentos!</li>
                             </ul>
                         </div>
                     </div>
@@ -1219,10 +1229,14 @@
             }, 500);
         }
 
+        // Função para iniciar a aula manualmente
+        function startLesson() {
+            hideLoadingAnimation();
+        }
+
         // Aguardar o carregamento completo da página
         window.addEventListener('DOMContentLoaded', function() {
-            // Hide loading animation after 3 seconds
-            setTimeout(hideLoadingAnimation, 3000);
+            // Removido o setTimeout automático - agora só inicia quando clicar no botão
             // Verificar se GSAP está carregado
             if (typeof gsap !== 'undefined') {
                 // Initialize GSAP
