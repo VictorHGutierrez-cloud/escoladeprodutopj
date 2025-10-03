@@ -41,6 +41,11 @@
             overflow: hidden;
         }
         
+        .hero-gradient h1,
+        .hero-gradient p {
+            opacity: 1;
+        }
+        
         .radical-red-box-title {
             background: #FF355E !important;
             border: none !important;
@@ -58,6 +63,8 @@
             margin: 1rem 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .lesson-card:hover {
@@ -85,6 +92,8 @@
             border-radius: 15px;
             padding: 1.5rem;
             transition: all 0.3s ease;
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .holographic-card:hover {
@@ -134,11 +143,26 @@
         
         .floating {
             animation: float 6s ease-in-out infinite;
+            opacity: 1;
         }
         
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotateY(0deg); }
-            50% { transform: translateY(-20px) rotateY(180deg); }
+            0%, 100% { 
+                transform: translateY(0px) rotateY(0deg); 
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-20px) rotateY(180deg); 
+                opacity: 0.8;
+            }
+        }
+        
+        /* Garantir que todos os elementos tenham opacidade inicial */
+        .lesson-card,
+        .holographic-card,
+        .comparison-table,
+        .radical-red-box-title {
+            opacity: 1 !important;
         }
     </style>
 </head>
@@ -1090,35 +1114,80 @@
 
     <!-- JavaScript -->
     <script>
-        // Initialize GSAP
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Enhanced GSAP Animations
-        gsap.from('.hero-gradient h1', {
-            duration: 1.5,
-            y: 50,
-            opacity: 0,
-            ease: 'power2.out'
+        // Aguardar o carregamento completo da página
+        window.addEventListener('DOMContentLoaded', function() {
+            // Verificar se GSAP está carregado
+            if (typeof gsap !== 'undefined') {
+                // Initialize GSAP
+                gsap.registerPlugin(ScrollTrigger);
+                
+                // Garantir que elementos tenham opacidade inicial correta
+                gsap.set('.hero-gradient h1, .hero-gradient p', { opacity: 1 });
+                gsap.set('.lesson-card', { opacity: 1 });
+                
+                // Enhanced GSAP Animations
+                gsap.from('.hero-gradient h1', {
+                    duration: 1.5,
+                    y: 50,
+                    opacity: 0,
+                    ease: 'power2.out'
+                });
+                
+                gsap.from('.hero-gradient p', {
+                    duration: 1.5,
+                    y: 50,
+                    opacity: 0,
+                    ease: 'power3.out',
+                    delay: 0.3
+                });
+                
+                gsap.from('.lesson-card', {
+                    scrollTrigger: {
+                        trigger: '.lesson-card',
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    duration: 1.2,
+                    y: 100,
+                    opacity: 0,
+                    ease: 'power3.out',
+                    stagger: 0.2
+                });
+                
+                // Animações para elementos flutuantes
+                gsap.to('.floating', {
+                    duration: 6,
+                    y: -20,
+                    rotation: 180,
+                    ease: 'power2.inOut',
+                    repeat: -1,
+                    yoyo: true
+                });
+                
+                // Animações de hover para cards
+                document.querySelectorAll('.lesson-card, .holographic-card').forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        gsap.to(card, { duration: 0.3, scale: 1.02, ease: 'power2.out' });
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        gsap.to(card, { duration: 0.3, scale: 1, ease: 'power2.out' });
+                    });
+                });
+                
+            } else {
+                console.error('GSAP não foi carregado corretamente');
+            }
         });
         
-        gsap.from('.hero-gradient p', {
-            duration: 1.5,
-            y: 50,
-            opacity: 0,
-            ease: 'power3.out',
-            delay: 0.3
-        });
-        
-        gsap.from('.lesson-card', {
-            scrollTrigger: {
-                trigger: '.lesson-card',
-                start: 'top 80%'
-            },
-            duration: 1.2,
-            y: 100,
-            opacity: 0,
-            ease: 'power3.out',
-            stagger: 0.2
+        // Fallback para caso GSAP não carregue
+        window.addEventListener('load', function() {
+            if (typeof gsap === 'undefined') {
+                // Aplicar estilos de fallback
+                document.querySelectorAll('.lesson-card, .holographic-card').forEach(card => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                });
+            }
         });
     </script>
 </body>
