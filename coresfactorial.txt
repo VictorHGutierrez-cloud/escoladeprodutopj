@@ -1,5 +1,0 @@
-#FF355E  = Radical Red
-#07A2AD = Viridian Green
-#FFB940 = Sunbeam
-#FF9153 = Tangerine
-#25253D = Midnight
